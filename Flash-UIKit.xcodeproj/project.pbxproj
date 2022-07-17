@@ -7,25 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		509C4E0F2883E5E600F629F2 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E0E2883E5E600F629F2 /* TagListViewController.swift */; };
 		50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */; };
 		50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */; };
-		50FF1DA028681A6B00EE5B51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9F28681A6B00EE5B51 /* ViewController.swift */; };
-		50FF1DA328681A6B00EE5B51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50FF1DA128681A6B00EE5B51 /* Main.storyboard */; };
+		50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */; };
 		50FF1DA628681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1DA428681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld */; };
 		50FF1DA828681A6D00EE5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50FF1DA728681A6D00EE5B51 /* Assets.xcassets */; };
 		50FF1DAB28681A6D00EE5B51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50FF1DA928681A6D00EE5B51 /* LaunchScreen.storyboard */; };
+		50FF1DB42868253100EE5B51 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */; };
+		EF1A44B8E4425300698E8024 /* Pods_Flash_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		509C4E0E2883E5E600F629F2 /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 		50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flash-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		50FF1D9F28681A6B00EE5B51 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		50FF1DA228681A6B00EE5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListViewController.swift; sourceTree = "<group>"; };
 		50FF1DA528681A6B00EE5B51 /* Flash_UIKit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flash_UIKit.xcdatamodel; sourceTree = "<group>"; };
 		50FF1DA728681A6D00EE5B51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50FF1DAA28681A6D00EE5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50FF1DAC28681A6D00EE5B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
+		BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash-UIKit.debug.xcconfig"; path = "Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit.debug.xcconfig"; sourceTree = "<group>"; };
+		BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flash_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash-UIKit.release.xcconfig"; path = "Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +39,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF1A44B8E4425300698E8024 /* Pods_Flash_UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		070C6A9AEDE3BCF568B3F2AD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */,
+				DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		50FF1D8F28681A6B00EE5B51 = {
 			isa = PBXGroup;
 			children = (
 				50FF1D9A28681A6B00EE5B51 /* Flash-UIKit */,
 				50FF1D9928681A6B00EE5B51 /* Products */,
+				070C6A9AEDE3BCF568B3F2AD /* Pods */,
+				D740C5FDD988DDD6DCD06DF1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +76,33 @@
 		50FF1D9A28681A6B00EE5B51 /* Flash-UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				50FF1DB22868251100EE5B51 /* Views */,
 				50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */,
 				50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */,
-				50FF1D9F28681A6B00EE5B51 /* ViewController.swift */,
-				50FF1DA128681A6B00EE5B51 /* Main.storyboard */,
 				50FF1DA728681A6D00EE5B51 /* Assets.xcassets */,
 				50FF1DA928681A6D00EE5B51 /* LaunchScreen.storyboard */,
 				50FF1DAC28681A6D00EE5B51 /* Info.plist */,
 				50FF1DA428681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld */,
 			);
 			path = "Flash-UIKit";
+			sourceTree = "<group>";
+		};
+		50FF1DB22868251100EE5B51 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */,
+				50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */,
+				509C4E0E2883E5E600F629F2 /* TagListViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D740C5FDD988DDD6DCD06DF1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +112,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50FF1DAF28681A6D00EE5B51 /* Build configuration list for PBXNativeTarget "Flash-UIKit" */;
 			buildPhases = (
+				24269BE2201DD6358C1B7232 /* [CP] Check Pods Manifest.lock */,
 				50FF1D9428681A6B00EE5B51 /* Sources */,
 				50FF1D9528681A6B00EE5B51 /* Frameworks */,
 				50FF1D9628681A6B00EE5B51 /* Resources */,
+				B1DECB92B1EAE7FB6A0B1BF8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,20 +167,63 @@
 			files = (
 				50FF1DAB28681A6D00EE5B51 /* LaunchScreen.storyboard in Resources */,
 				50FF1DA828681A6D00EE5B51 /* Assets.xcassets in Resources */,
-				50FF1DA328681A6B00EE5B51 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24269BE2201DD6358C1B7232 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Flash-UIKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B1DECB92B1EAE7FB6A0B1BF8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		50FF1D9428681A6B00EE5B51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50FF1DA028681A6B00EE5B51 /* ViewController.swift in Sources */,
+				50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */,
+				50FF1DB42868253100EE5B51 /* EntryTableViewCell.swift in Sources */,
 				50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */,
 				50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */,
+				509C4E0F2883E5E600F629F2 /* TagListViewController.swift in Sources */,
 				50FF1DA628681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,14 +231,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		50FF1DA128681A6B00EE5B51 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50FF1DA228681A6B00EE5B51 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		50FF1DA928681A6D00EE5B51 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -220,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -286,6 +358,7 @@
 		};
 		50FF1DB028681A6D00EE5B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -296,9 +369,10 @@
 				INFOPLIST_FILE = "Flash-UIKit/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,6 +388,7 @@
 		};
 		50FF1DB128681A6D00EE5B51 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -324,9 +399,10 @@
 				INFOPLIST_FILE = "Flash-UIKit/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
