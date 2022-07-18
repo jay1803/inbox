@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		509C4E0F2883E5E600F629F2 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E0E2883E5E600F629F2 /* TagListViewController.swift */; };
+		509C4E3A2884539100F629F2 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E392884539100F629F2 /* CoreDataStack.swift */; };
+		509C4E7728851E8900F629F2 /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7128851E8900F629F2 /* Entry+CoreDataClass.swift */; };
+		509C4E7828851E8900F629F2 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7228851E8900F629F2 /* Entry+CoreDataProperties.swift */; };
+		509C4E7928851E8900F629F2 /* Quote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7328851E8900F629F2 /* Quote+CoreDataClass.swift */; };
+		509C4E7A28851E8900F629F2 /* Quote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7428851E8900F629F2 /* Quote+CoreDataProperties.swift */; };
+		509C4E7B28851E8900F629F2 /* Attachment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */; };
+		509C4E7C28851E8900F629F2 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */; };
 		50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */; };
 		50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */; };
 		50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */; };
@@ -19,7 +25,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		509C4E0E2883E5E600F629F2 /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
+		509C4E392884539100F629F2 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		509C4E6028845A0F00F629F2 /* 1.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.0.xcdatamodel; sourceTree = "<group>"; };
+		509C4E7128851E8900F629F2 /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		509C4E7228851E8900F629F2 /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		509C4E7328851E8900F629F2 /* Quote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote+CoreDataClass.swift"; sourceTree = "<group>"; };
+		509C4E7428851E8900F629F2 /* Quote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flash-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +68,28 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		509C4E3B288458DD00F629F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				509C4E7128851E8900F629F2 /* Entry+CoreDataClass.swift */,
+				509C4E7228851E8900F629F2 /* Entry+CoreDataProperties.swift */,
+				509C4E7328851E8900F629F2 /* Quote+CoreDataClass.swift */,
+				509C4E7428851E8900F629F2 /* Quote+CoreDataProperties.swift */,
+				509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */,
+				509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		509C4E7D2885200F00F629F2 /* EntryList */ = {
+			isa = PBXGroup;
+			children = (
+				50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */,
+				50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */,
+			);
+			path = EntryList;
+			sourceTree = "<group>";
+		};
 		50FF1D8F28681A6B00EE5B51 = {
 			isa = PBXGroup;
 			children = (
@@ -76,8 +111,10 @@
 		50FF1D9A28681A6B00EE5B51 /* Flash-UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				50FF1DB22868251100EE5B51 /* Views */,
+				509C4E3B288458DD00F629F2 /* Model */,
+				50FF1DB22868251100EE5B51 /* View */,
 				50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */,
+				509C4E392884539100F629F2 /* CoreDataStack.swift */,
 				50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */,
 				50FF1DA728681A6D00EE5B51 /* Assets.xcassets */,
 				50FF1DA928681A6D00EE5B51 /* LaunchScreen.storyboard */,
@@ -87,14 +124,12 @@
 			path = "Flash-UIKit";
 			sourceTree = "<group>";
 		};
-		50FF1DB22868251100EE5B51 /* Views */ = {
+		50FF1DB22868251100EE5B51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */,
-				50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */,
-				509C4E0E2883E5E600F629F2 /* TagListViewController.swift */,
+				509C4E7D2885200F00F629F2 /* EntryList */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		D740C5FDD988DDD6DCD06DF1 /* Frameworks */ = {
@@ -219,12 +254,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509C4E3A2884539100F629F2 /* CoreDataStack.swift in Sources */,
 				50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */,
+				509C4E7728851E8900F629F2 /* Entry+CoreDataClass.swift in Sources */,
 				50FF1DB42868253100EE5B51 /* EntryTableViewCell.swift in Sources */,
 				50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */,
 				50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */,
-				509C4E0F2883E5E600F629F2 /* TagListViewController.swift in Sources */,
+				509C4E7B28851E8900F629F2 /* Attachment+CoreDataClass.swift in Sources */,
+				509C4E7928851E8900F629F2 /* Quote+CoreDataClass.swift in Sources */,
+				509C4E7828851E8900F629F2 /* Entry+CoreDataProperties.swift in Sources */,
+				509C4E7A28851E8900F629F2 /* Quote+CoreDataProperties.swift in Sources */,
 				50FF1DA628681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld in Sources */,
+				509C4E7C28851E8900F629F2 /* Attachment+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -346,7 +387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -372,7 +413,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,7 +423,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -402,7 +443,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,7 +453,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -443,6 +484,7 @@
 		50FF1DA428681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				509C4E6028845A0F00F629F2 /* 1.0.0.xcdatamodel */,
 				50FF1DA528681A6B00EE5B51 /* Flash_UIKit.xcdatamodel */,
 			);
 			currentVersion = 50FF1DA528681A6B00EE5B51 /* Flash_UIKit.xcdatamodel */;

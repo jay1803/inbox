@@ -13,6 +13,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isFavorated" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="quote" optional="YES" attributeType="Transformable"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="attachedTo" inverseEntity="Attachment"/>
         <relationship name="quotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Quote" inverseName="quoted" inverseEntity="Quote"/>
@@ -27,7 +28,7 @@
     </entity>
     <elements>
         <element name="Attachment" positionX="303.828125" positionY="92.35546875" width="128" height="104"/>
-        <element name="Entry" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="Entry" positionX="-63" positionY="-18" width="128" height="194"/>
         <element name="Quote" positionX="242.4296875" positionY="-110.32421875" width="128" height="89"/>
     </elements>
 </model>
