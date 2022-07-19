@@ -14,6 +14,7 @@
 		509C4E7A28851E8900F629F2 /* Quote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7428851E8900F629F2 /* Quote+CoreDataProperties.swift */; };
 		509C4E7B28851E8900F629F2 /* Attachment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */; };
 		509C4E7C28851E8900F629F2 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */; };
+		509C4E802886734400F629F2 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7F2886734400F629F2 /* EditorViewController.swift */; };
 		50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */; };
 		50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */; };
 		50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */; };
@@ -33,6 +34,7 @@
 		509C4E7428851E8900F629F2 /* Quote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quote+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		509C4E7F2886734400F629F2 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flash-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 			path = EntryList;
 			sourceTree = "<group>";
 		};
+		509C4E7E2886732D00F629F2 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				509C4E7F2886734400F629F2 /* EditorViewController.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
 		50FF1D8F28681A6B00EE5B51 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +137,7 @@
 		50FF1DB22868251100EE5B51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				509C4E7E2886732D00F629F2 /* Editor */,
 				509C4E7D2885200F00F629F2 /* EntryList */,
 			);
 			path = View;
@@ -261,6 +272,7 @@
 				50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */,
 				50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */,
 				509C4E7B28851E8900F629F2 /* Attachment+CoreDataClass.swift in Sources */,
+				509C4E802886734400F629F2 /* EditorViewController.swift in Sources */,
 				509C4E7928851E8900F629F2 /* Quote+CoreDataClass.swift in Sources */,
 				509C4E7828851E8900F629F2 /* Entry+CoreDataProperties.swift in Sources */,
 				509C4E7A28851E8900F629F2 /* Quote+CoreDataProperties.swift in Sources */,

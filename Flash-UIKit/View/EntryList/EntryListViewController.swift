@@ -50,7 +50,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,
-                action: #selector(EntryListViewController.editEntries))
+                action: #selector(EntryListViewController.editEntry))
         let addButton = UIBarButtonItem(
                 barButtonSystemItem: .add,
                 target: self,
@@ -109,12 +109,36 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func editEntries() {
+    @objc func editEntry() {
         
+    }
+    
+    @objc func remove(_ entry: Entry) {
+        self.context.delete(entry)
+        
+        // Save context
+        do {
+            try self.context.save()
+        } catch {
+            print("Save context failed...")
+        }
+        
+        // Re-fetch data
+        self.fetchEntries()
     }
     
     func handleData() {
         
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, view, completionhandler) in
+            let entry = self?.items![indexPath.row]
+            self?.remove(entry!)
+            completionhandler(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [action])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,16 +149,15 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
-        
-        var content: String = "Nothing"
-        
-        if let entry = self.items?[indexPath.row] {
-            content = entry.content!
+        let entry = self.items![indexPath.row]
+        var count = 0
+        if let replies = entry.replies {
+            count = replies.count
         }
         
-        cell.contentLabel.text = content
-        cell.createdAtLabel.text = "today"
-        cell.repliesCountLabel.text = "0"
+        cell.contentLabel.text = entry.content
+        cell.createdAtLabel.text = entry.content
+        cell.repliesCountLabel.text = "\(count)"
         return cell
     }
 }
