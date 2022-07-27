@@ -12,13 +12,14 @@ enum Section {
     case all
 }
 
-class EntryListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EntryListViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Property
     var path = NSHomeDirectory()
     let data = ["one", "two", "three"]
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [Entry]?
+    lazy var dataSource = configureDataSource()
     
     private var tableView: UITableView = UITableView()
     
@@ -26,6 +27,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchEntries()
         
         view.addSubview(tableView)
         
@@ -34,9 +36,14 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: EntryTableViewCell.identifier)
         
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = dataSource
         
-        fetchEntries()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
+        snapshot.appendSections([.all])
+        snapshot.appendItems(self.items!, toSection: .all)
+        dataSource.apply(snapshot)
+        
+        
         
     }
 
@@ -66,7 +73,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     
     func setupLayout() {
-        
+        tableView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+        tableView.separatorStyle = .singleLine
     }
     
     // MARK: - Private
@@ -132,11 +140,31 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.fetchEntries()
     }
     
-    func handleData() {
-        
+    func viewDetail() {
+        navigationController?.pushViewController(EntryDetailsViewController(), animated: true)
     }
     
-    // MARK: - Controller
+    
+    // MARK: - Data source
+    
+    func configureDataSource() -> UITableViewDiffableDataSource<Section, Entry> {
+        let cellIdentifier = EntryTableViewCell.identifier
+        let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: tableView, cellProvider: {tableView, indexPath, entry in
+            let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
+            
+            // TODO: Convert createdAt to String
+            cell.createdAtLabel.text    = entry.content
+            cell.contentLabel.text      = entry.content
+
+            var count = 0
+            if entry.replies != nil {
+                count = entry.replies!.count
+            }
+            cell.repliesCountLabel.text = "\(count)"
+            return cell
+        })
+        return dataSource
+    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, view, completionhandler) in
@@ -153,25 +181,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         return count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
-        let entry = self.items![indexPath.row]
-        var count = 0
-        if let replies = entry.replies {
-            count = replies.count
-        }
-        
-        cell.contentLabel.text = entry.content
-        cell.createdAtLabel.text = entry.content
-        cell.repliesCountLabel.text = "\(count)"
-        return cell
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let optionMenu = UIAlertController(title: "update note", message: "update your note", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        optionMenu.addAction(cancelAction)
-        present(optionMenu, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewDetail()
     }
 }

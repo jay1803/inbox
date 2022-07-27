@@ -14,8 +14,8 @@ class EntryDetailsViewController: UIViewController {
     // MARK: - Property
     var textView = UITextView()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var entryId: String?
     var entry: Entry?
+    var content: String = "This is a sample content"
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -29,11 +29,13 @@ class EntryDetailsViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-
+        title = "Detail"
     }
     
     func setupViews() {
         textView.font = UIFont.systemFont(ofSize: 14)
+        textView.text = content
+        textView.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
     }
 
     func setupLayout() {

@@ -1,6 +1,0 @@
-framework module Pods_Flash_UIKit {
-  umbrella header "Pods-Flash-UIKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

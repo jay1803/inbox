@@ -48,8 +48,9 @@ class EntryTableViewCell: UITableViewCell {
     
     func setupView() {
         createdAtLabel.font    = UIFont.systemFont(ofSize: 12)
-        repliesCountLabel.font = UIFont.systemFont(ofSize: 12)
         createdAtLabel.textColor = UIColor.gray
+        
+        repliesCountLabel.font = UIFont.systemFont(ofSize: 12)
         repliesCountLabel.textColor = UIColor.gray
         
         contentLabel.numberOfLines = 3

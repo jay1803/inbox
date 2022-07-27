@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4E2A815928585AD5FADBABED1793E98A"
-               BuildableName = "Pods_Flash_UIKit.framework"
-               BlueprintName = "Pods-Flash-UIKit"
+               BlueprintIdentifier = "03C0FF1EB47DAD7560738C5F7375C2FE"
+               BuildableName = "Pods_Inbox.framework"
+               BlueprintName = "Pods-Inbox"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

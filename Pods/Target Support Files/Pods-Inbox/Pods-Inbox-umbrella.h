@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Flash_UIKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Flash_UIKitVersionString[];
+FOUNDATION_EXPORT double Pods_InboxVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_InboxVersionString[];
 
