@@ -15,12 +15,22 @@ class EntryDetailsViewController: UIViewController {
     var textView = UITextView()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
-    var content: String = "This is a sample content"
+    var entryId: UUID?
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         addSubviews()
+        setupNavigationBar()
+        setupViews()
+        setupLayout()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        textView.frame = view.bounds
+        fetchEntry()
     }
 
     // MARK: - ViewSetup
@@ -30,12 +40,21 @@ class EntryDetailsViewController: UIViewController {
     
     func setupNavigationBar() {
         title = "Detail"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        let editButton = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(EntryListViewController.editEntry))
+        
+        self.navigationItem.rightBarButtonItem = editButton
     }
     
     func setupViews() {
         textView.font = UIFont.systemFont(ofSize: 14)
-        textView.text = content
-        textView.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
+        textView.text = entry?.content
+        textView.backgroundColor = UIColor.blue
     }
 
     func setupLayout() {
@@ -46,16 +65,23 @@ class EntryDetailsViewController: UIViewController {
     }
 
     // MARK: - Private
-    func getEntryBy(id entryId: String) {
+    func fetchEntry() {
         
         do {
             let request = Entry.fetchRequest() as NSFetchRequest<Entry>
-            let pred = NSPredicate(format: "id == \(entryId)")
+            let pred = NSPredicate(format: "id == \(entry?.id)")
             request.predicate = pred
             self.entry = try context.fetch(request).first
+            DispatchQueue.main.async {
+                self.textView.reloadInputViews()
+            }
         } catch {
             print("Get entry failed...")
         }
+    }
+    
+    @objc func edit(entry: Entry) {
+        
     }
 
 }

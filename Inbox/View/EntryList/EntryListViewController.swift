@@ -140,8 +140,10 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         self.fetchEntries()
     }
     
-    func viewDetail() {
-        navigationController?.pushViewController(EntryDetailsViewController(), animated: true)
+    func viewDetail(of entry: Entry) {
+        let viewController = EntryDetailsViewController()
+        viewController.entryId = entry.id
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     
@@ -183,6 +185,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        viewDetail()
+        let item = self.items![indexPath.row]
+        viewDetail(of: item)
     }
 }
