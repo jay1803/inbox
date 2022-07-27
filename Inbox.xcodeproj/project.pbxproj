@@ -15,6 +15,7 @@
 		509C4E7B28851E8900F629F2 /* Attachment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */; };
 		509C4E7C28851E8900F629F2 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */; };
 		509C4E802886734400F629F2 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E7F2886734400F629F2 /* EditorViewController.swift */; };
+		509C4E87288FAE7C00F629F2 /* EntryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E86288FAE7C00F629F2 /* EntryDetailsViewController.swift */; };
 		50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */; };
 		50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */; };
 		50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */; };
@@ -22,10 +23,11 @@
 		50FF1DA828681A6D00EE5B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50FF1DA728681A6D00EE5B51 /* Assets.xcassets */; };
 		50FF1DAB28681A6D00EE5B51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50FF1DA928681A6D00EE5B51 /* LaunchScreen.storyboard */; };
 		50FF1DB42868253100EE5B51 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */; };
-		EF1A44B8E4425300698E8024 /* Pods_Flash_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */; };
+		66EBAF6E0C9ED97FCFDCA571 /* Pods_Inbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74EB7B012039C1ACA13E40A /* Pods_Inbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CA7EB5F2FD7C0D16E434301 /* Pods-Inbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inbox.release.xcconfig"; path = "Target Support Files/Pods-Inbox/Pods-Inbox.release.xcconfig"; sourceTree = "<group>"; };
 		509C4E392884539100F629F2 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		509C4E6028845A0F00F629F2 /* 1.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.0.xcdatamodel; sourceTree = "<group>"; };
 		509C4E7128851E8900F629F2 /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -35,7 +37,8 @@
 		509C4E7528851E8900F629F2 /* Attachment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		509C4E7628851E8900F629F2 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		509C4E7F2886734400F629F2 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flash-UIKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		509C4E86288FAE7C00F629F2 /* EntryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsViewController.swift; sourceTree = "<group>"; };
+		50FF1D9828681A6B00EE5B51 /* Inbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		50FF1D9F28681A6B00EE5B51 /* EntryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListViewController.swift; sourceTree = "<group>"; };
@@ -44,9 +47,10 @@
 		50FF1DAA28681A6D00EE5B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50FF1DAC28681A6D00EE5B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50FF1DB32868253100EE5B51 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
+		B74EB7B012039C1ACA13E40A /* Pods_Inbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Inbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash-UIKit.debug.xcconfig"; path = "Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit.debug.xcconfig"; sourceTree = "<group>"; };
-		BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flash_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash-UIKit.release.xcconfig"; path = "Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		F8AC478B1A089A64B904589D /* Pods-Inbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inbox.debug.xcconfig"; path = "Target Support Files/Pods-Inbox/Pods-Inbox.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF1A44B8E4425300698E8024 /* Pods_Flash_UIKit.framework in Frameworks */,
+				66EBAF6E0C9ED97FCFDCA571 /* Pods_Inbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +70,8 @@
 			children = (
 				BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */,
 				DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */,
+				F8AC478B1A089A64B904589D /* Pods-Inbox.debug.xcconfig */,
+				1CA7EB5F2FD7C0D16E434301 /* Pods-Inbox.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -100,10 +106,18 @@
 			path = Editor;
 			sourceTree = "<group>";
 		};
+		509C4E85288FAE6300F629F2 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				509C4E86288FAE7C00F629F2 /* EntryDetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		50FF1D8F28681A6B00EE5B51 = {
 			isa = PBXGroup;
 			children = (
-				50FF1D9A28681A6B00EE5B51 /* Flash-UIKit */,
+				50FF1D9A28681A6B00EE5B51 /* Inbox */,
 				50FF1D9928681A6B00EE5B51 /* Products */,
 				070C6A9AEDE3BCF568B3F2AD /* Pods */,
 				D740C5FDD988DDD6DCD06DF1 /* Frameworks */,
@@ -113,12 +127,12 @@
 		50FF1D9928681A6B00EE5B51 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */,
+				50FF1D9828681A6B00EE5B51 /* Inbox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		50FF1D9A28681A6B00EE5B51 /* Flash-UIKit */ = {
+		50FF1D9A28681A6B00EE5B51 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
 				509C4E3B288458DD00F629F2 /* Model */,
@@ -131,12 +145,13 @@
 				50FF1DAC28681A6D00EE5B51 /* Info.plist */,
 				50FF1DA428681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld */,
 			);
-			path = "Flash-UIKit";
+			path = Inbox;
 			sourceTree = "<group>";
 		};
 		50FF1DB22868251100EE5B51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				509C4E85288FAE6300F629F2 /* Details */,
 				509C4E7E2886732D00F629F2 /* Editor */,
 				509C4E7D2885200F00F629F2 /* EntryList */,
 			);
@@ -146,7 +161,7 @@
 		D740C5FDD988DDD6DCD06DF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BF461095F4FE52AE277C84D9 /* Pods_Flash_UIKit.framework */,
+				B74EB7B012039C1ACA13E40A /* Pods_Inbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,9 +169,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		50FF1D9728681A6B00EE5B51 /* Flash-UIKit */ = {
+		50FF1D9728681A6B00EE5B51 /* Inbox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 50FF1DAF28681A6D00EE5B51 /* Build configuration list for PBXNativeTarget "Flash-UIKit" */;
+			buildConfigurationList = 50FF1DAF28681A6D00EE5B51 /* Build configuration list for PBXNativeTarget "Inbox" */;
 			buildPhases = (
 				24269BE2201DD6358C1B7232 /* [CP] Check Pods Manifest.lock */,
 				50FF1D9428681A6B00EE5B51 /* Sources */,
@@ -168,9 +183,9 @@
 			);
 			dependencies = (
 			);
-			name = "Flash-UIKit";
+			name = Inbox;
 			productName = "Flash-UIKit";
-			productReference = 50FF1D9828681A6B00EE5B51 /* Flash-UIKit.app */;
+			productReference = 50FF1D9828681A6B00EE5B51 /* Inbox.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -188,7 +203,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 50FF1D9328681A6B00EE5B51 /* Build configuration list for PBXProject "Flash-UIKit" */;
+			buildConfigurationList = 50FF1D9328681A6B00EE5B51 /* Build configuration list for PBXProject "Inbox" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -201,7 +216,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				50FF1D9728681A6B00EE5B51 /* Flash-UIKit */,
+				50FF1D9728681A6B00EE5B51 /* Inbox */,
 			);
 		};
 /* End PBXProject section */
@@ -234,7 +249,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Flash-UIKit-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Inbox-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -247,15 +262,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Inbox/Pods-Inbox-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Inbox/Pods-Inbox-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flash-UIKit/Pods-Flash-UIKit-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Inbox/Pods-Inbox-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -275,6 +290,7 @@
 				509C4E802886734400F629F2 /* EditorViewController.swift in Sources */,
 				509C4E7928851E8900F629F2 /* Quote+CoreDataClass.swift in Sources */,
 				509C4E7828851E8900F629F2 /* Entry+CoreDataProperties.swift in Sources */,
+				509C4E87288FAE7C00F629F2 /* EntryDetailsViewController.swift in Sources */,
 				509C4E7A28851E8900F629F2 /* Quote+CoreDataProperties.swift in Sources */,
 				50FF1DA628681A6B00EE5B51 /* Flash_UIKit.xcdatamodeld in Sources */,
 				509C4E7C28851E8900F629F2 /* Attachment+CoreDataProperties.swift in Sources */,
@@ -411,7 +427,7 @@
 		};
 		50FF1DB028681A6D00EE5B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAFE4F3DBB4B52746115A450 /* Pods-Flash-UIKit.debug.xcconfig */;
+			baseConfigurationReference = F8AC478B1A089A64B904589D /* Pods-Inbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -419,7 +435,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WX2JA5FWNQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Flash-UIKit/Info.plist";
+				INFOPLIST_FILE = Inbox/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Inbox;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -431,7 +448,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.maxos.Flash-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxos.inbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -441,7 +458,7 @@
 		};
 		50FF1DB128681A6D00EE5B51 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC71E5ECF6276BDE05EF9364 /* Pods-Flash-UIKit.release.xcconfig */;
+			baseConfigurationReference = 1CA7EB5F2FD7C0D16E434301 /* Pods-Inbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -449,7 +466,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WX2JA5FWNQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Flash-UIKit/Info.plist";
+				INFOPLIST_FILE = Inbox/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Inbox;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -461,7 +479,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.maxos.Flash-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxos.inbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -472,7 +490,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		50FF1D9328681A6B00EE5B51 /* Build configuration list for PBXProject "Flash-UIKit" */ = {
+		50FF1D9328681A6B00EE5B51 /* Build configuration list for PBXProject "Inbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				50FF1DAD28681A6D00EE5B51 /* Debug */,
@@ -481,7 +499,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		50FF1DAF28681A6D00EE5B51 /* Build configuration list for PBXNativeTarget "Flash-UIKit" */ = {
+		50FF1DAF28681A6D00EE5B51 /* Build configuration list for PBXNativeTarget "Inbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				50FF1DB028681A6D00EE5B51 /* Debug */,

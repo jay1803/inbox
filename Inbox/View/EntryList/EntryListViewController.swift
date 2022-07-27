@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+enum Section {
+    case all
+}
+
 class EntryListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Property
@@ -46,7 +50,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
     func setupNavigationBar() {
         title = "Home"
         navigationItem.largeTitleDisplayMode = .always
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,
@@ -66,6 +70,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Private
+
     func fetchEntries() {
         do {
             self.items = try context.fetch(Entry.fetchRequest())
@@ -131,6 +136,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    // MARK: - Controller
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, view, completionhandler) in
             let entry = self?.items![indexPath.row]
@@ -159,5 +166,12 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.createdAtLabel.text = entry.content
         cell.repliesCountLabel.text = "\(count)"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let optionMenu = UIAlertController(title: "update note", message: "update your note", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        optionMenu.addAction(cancelAction)
+        present(optionMenu, animated: true)
     }
 }
