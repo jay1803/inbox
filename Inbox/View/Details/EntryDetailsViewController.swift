@@ -12,10 +12,12 @@ import CoreData
 class EntryDetailsViewController: UIViewController {
 
     // MARK: - Property
-    var textView = UITextView()
+    var detailview = UIView()
+    var textView = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
     var entryId: UUID?
+    let content = "This is a sample content"
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -29,19 +31,20 @@ class EntryDetailsViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        textView.frame = view.bounds
-        fetchEntry()
+        detailview.frame = view.bounds
     }
 
     // MARK: - ViewSetup
     func addSubviews() {
+        view.addSubview(detailview)
         view.addSubview(textView)
     }
     
     func setupNavigationBar() {
         title = "Detail"
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode                    = .never
+        navigationController?.navigationBar.prefersLargeTitles  = false
+        navigationController?.navigationBar.isTranslucent       = false
         
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
@@ -52,14 +55,19 @@ class EntryDetailsViewController: UIViewController {
     }
     
     func setupViews() {
-        textView.font = UIFont.systemFont(ofSize: 14)
-        textView.text = entry?.content
-        textView.backgroundColor = UIColor.blue
+        textView.font               = UIFont.systemFont(ofSize: 14)
+        textView.text               = entry?.content
+        textView.isSelectable       = true
+        textView.isScrollEnabled    = false
+        textView.backgroundColor    = UIColor.blue
+        
+        detailview.backgroundColor  = UIColor.systemBackground
     }
 
     func setupLayout() {
         textView.snp.makeConstraints { (make) in
-            make.top.left.equalTo(view).offset(20)
+            make.top.equalTo(view).offset(20)
+            make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
         }
     }

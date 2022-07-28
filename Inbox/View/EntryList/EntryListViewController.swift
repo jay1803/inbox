@@ -56,8 +56,9 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     
     func setupNavigationBar() {
         title = "Home"
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode                    = .always
+        navigationController?.navigationBar.prefersLargeTitles  = true
+        navigationController?.navigationBar.isTranslucent       = false
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,
@@ -67,13 +68,13 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
                 target: self,
                 action: #selector(EntryListViewController.addEntry))
         
-        self.navigationItem.leftBarButtonItem = editButton
-        self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.leftBarButtonItem   = editButton
+        self.navigationItem.rightBarButtonItem  = addButton
     }
 
     
     func setupLayout() {
-        tableView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+        tableView.frame = UIScreen.main.bounds
         tableView.separatorStyle = .singleLine
     }
     
@@ -142,7 +143,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     
     func viewDetail(of entry: Entry) {
         let viewController = EntryDetailsViewController()
-        viewController.entryId = entry.id
+        viewController.entry = entry
         navigationController?.pushViewController(viewController, animated: true)
     }
     
