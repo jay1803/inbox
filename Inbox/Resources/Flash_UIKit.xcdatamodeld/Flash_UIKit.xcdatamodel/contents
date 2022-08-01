@@ -8,9 +8,9 @@
         <relationship name="attachedTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="attachments" inverseEntity="Entry"/>
     </entity>
     <entity name="Entry" representedClassName="Entry" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="content" attributeType="String" defaultValueString="Sample content" spotlightIndexingEnabled="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" defaultValueString="CDCC304D-0000-0000-0000-B9AB6A43518B" usesScalarValueType="NO"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isFavorated" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -20,7 +20,7 @@
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="replies" inverseEntity="Entry"/>
     </entity>
     <entity name="Quote" representedClassName="Quote" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
         <relationship name="quoted" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="quotes" inverseEntity="Entry"/>

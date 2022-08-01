@@ -1,8 +1,8 @@
 //
 //  Entry+CoreDataProperties.swift
-//  Flash-UIKit
+//  Inbox
 //
-//  Created by Max Zhang on 2022/7/18.
+//  Created by Max Zhang on 2022/8/1.
 //
 //
 
@@ -21,7 +21,6 @@ extension Entry {
     @NSManaged public var id: UUID?
     @NSManaged public var isArchived: Bool
     @NSManaged public var isFavorated: Bool
-    @NSManaged public var quote: NSObject?
     @NSManaged public var updatedAt: Date?
     @NSManaged public var attachments: NSSet?
     @NSManaged public var quotes: NSSet?

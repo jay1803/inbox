@@ -1,8 +1,8 @@
 //
 //  Attachment+CoreDataProperties.swift
-//  Flash-UIKit
+//  Inbox
 //
-//  Created by Max Zhang on 2022/7/18.
+//  Created by Max Zhang on 2022/8/1.
 //
 //
 

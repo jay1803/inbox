@@ -37,19 +37,13 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         
         tableView.delegate = self
         tableView.dataSource = dataSource
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
-        snapshot.appendSections([.all])
-        snapshot.appendItems(self.items!, toSection: .all)
-        dataSource.apply(snapshot)
-        
-        
-        
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        
+        print(appFolder)
     }
     
     // MARK: - ViewSetup
@@ -82,9 +76,12 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
 
     func fetchEntries() {
         do {
-            self.items = try context.fetch(Entry.fetchRequest())
+            self.items = try self.context.fetch(Entry.fetchRequest())
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
+                snapshot.appendSections([.all])
+                snapshot.appendItems(self.items!, toSection: .all)
+                self.dataSource.apply(snapshot)
             }
         } catch {
             print("Getting entries failed...")
@@ -180,7 +177,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = self.items?.count else { return 1 }
+        guard let count = self.items?.count else { return 0 }
         return count
     }
     

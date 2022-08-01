@@ -1,8 +1,8 @@
 //
 //  Quote+CoreDataProperties.swift
-//  Flash-UIKit
+//  Inbox
 //
-//  Created by Max Zhang on 2022/7/18.
+//  Created by Max Zhang on 2022/8/1.
 //
 //
 
@@ -16,10 +16,10 @@ extension Quote {
         return NSFetchRequest<Quote>(entityName: "Quote")
     }
 
-    @NSManaged public var content: String?
+    @NSManaged public var text: String?
     @NSManaged public var title: String?
     @NSManaged public var url: URL?
-    @NSManaged public var quoted: Entry?
+    @NSManaged public var quoted: NSManagedObject?
 
 }
 
