@@ -62,6 +62,7 @@ class EntryDetailsViewController: UIViewController {
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
         textView.backgroundColor    = UIColor.blue
+        textView.isEditable         = false
         
         detailview.backgroundColor  = UIColor.systemBackground
         
