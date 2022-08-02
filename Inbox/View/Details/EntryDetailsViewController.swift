@@ -25,6 +25,7 @@ class EntryDetailsViewController: UIViewController {
         
         addSubviews()
         setupNavigationBar()
+        setupMenu()
         setupViews()
         setupLayout()
     }
@@ -85,6 +86,12 @@ class EntryDetailsViewController: UIViewController {
             make.height.equalTo(50)
         }
     }
+    
+    func setupMenu() {
+        let quote = UIMenuItem(title: "Quote", action: #selector(self.quote))
+        let menu = UIMenuController.shared
+        menu.menuItems = [quote]
+    }
 
     // MARK: - Private
     func fetchEntry() {
@@ -142,6 +149,10 @@ class EntryDetailsViewController: UIViewController {
         
         self.present(alert, animated: true)
         
+    }
+    
+    @objc func quote(){
+        print("Quotep pressed...")
     }
 
 }
