@@ -51,7 +51,7 @@ class EntryDetailsViewController: UIViewController {
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,
-                action: #selector(EntryListViewController.editEntry))
+                action: #selector(self.editEntry))
         
         self.navigationItem.rightBarButtonItem = editButton
     }
@@ -114,8 +114,33 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
-    @objc func edit(entry: Entry) {
+    @objc func editEntry() {
+        print("Pressed edit button...")
+        let alert = UIAlertController(title: "Edit entry", message: "Edit entry", preferredStyle: .alert)
         
+        alert.addTextField(configurationHandler: {(textFiled: UITextField!) -> Void in
+            textFiled.text = self.entry?.content
+        })
+        
+        let submit = UIAlertAction(title: "Submit", style: .default) { (action) in
+            let textfiled = alert.textFields![0]
+            self.entry?.content = textfiled.text
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("Edit note error...")
+            }
+            
+            self.fetchEntry()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(submit)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
     }
     
     func replyWith(_ reply: Entry) {
