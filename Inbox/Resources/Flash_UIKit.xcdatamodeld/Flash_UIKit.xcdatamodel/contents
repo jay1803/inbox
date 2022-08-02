@@ -13,21 +13,14 @@
         <attribute name="id" attributeType="UUID" defaultValueString="CDCC304D-0000-0000-0000-B9AB6A43518B" usesScalarValueType="NO"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isFavorated" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="quote" optional="YES" attributeType="String"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="attachedTo" inverseEntity="Attachment"/>
-        <relationship name="quotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Quote" inverseName="quoted" inverseEntity="Quote"/>
         <relationship name="replies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Entry" inverseName="replyTo" inverseEntity="Entry"/>
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="replies" inverseEntity="Entry"/>
-    </entity>
-    <entity name="Quote" representedClassName="Quote" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="URI"/>
-        <relationship name="quoted" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="quotes" inverseEntity="Entry"/>
     </entity>
     <elements>
         <element name="Attachment" positionX="303.828125" positionY="92.35546875" width="128" height="104"/>
         <element name="Entry" positionX="-63" positionY="-18" width="128" height="179"/>
-        <element name="Quote" positionX="242.4296875" positionY="-110.32421875" width="128" height="89"/>
     </elements>
 </model>

@@ -117,6 +117,20 @@ class EntryDetailsViewController: UIViewController {
         
     }
     
+    func replyWith(_ reply: Entry) {
+        reply.replyTo = self.entry!
+        self.entry!.addToReplies(reply)
+        
+        // Save the new reply
+        do {
+            try self.context.save()
+        } catch {
+            print("Save reply failed...")
+        }
+        
+        self.fetchEntry()
+    }
+    
     @objc func replyTo() {
         let alert = UIAlertController(title: "Reply to", message: "Reply to current note", preferredStyle: .alert)
         alert.addTextField()
@@ -128,18 +142,8 @@ class EntryDetailsViewController: UIViewController {
             reply.content = textfiled.text
             reply.createdAt = Date()
             reply.updatedAt = reply.createdAt
-            reply.replyTo = self.entry!
             
-            self.entry!.addToReplies(reply)
-            
-            // Save the new reply
-            do {
-                try self.context.save()
-            } catch {
-                print("Save reply failed...")
-            }
-            
-            self.fetchEntry()
+            self.replyWith(reply)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
@@ -152,7 +156,31 @@ class EntryDetailsViewController: UIViewController {
     }
     
     @objc func quote(){
-        print("Quotep pressed...")
+        guard let textRange = textView.selectedTextRange else { return }
+        guard let selectedText = textView.text(in: textRange) else { return }
+        print("Quote text: \(selectedText)")
+        
+        let alert = UIAlertController(title: "Reply with quote", message: "\(selectedText)", preferredStyle: .alert)
+        alert.addTextField()
+        
+        let submit = UIAlertAction(title: "Submit", style: .default) { (action) in
+            let textfiled = alert.textFields![0]
+            let reply = Entry(context: self.context)
+            reply.id = UUID()
+            reply.content = textfiled.text
+            reply.createdAt = Date()
+            reply.updatedAt = reply.createdAt
+            reply.quote = selectedText
+            
+            self.replyWith(reply)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(submit)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
     }
 
 }

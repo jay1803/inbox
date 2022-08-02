@@ -2,7 +2,7 @@
 //  Entry+CoreDataProperties.swift
 //  Inbox
 //
-//  Created by Max Zhang on 2022/8/1.
+//  Created by Max Zhang on 2022/8/2.
 //
 //
 
@@ -22,8 +22,8 @@ extension Entry {
     @NSManaged public var isArchived: Bool
     @NSManaged public var isFavorated: Bool
     @NSManaged public var updatedAt: Date?
+    @NSManaged public var quote: String?
     @NSManaged public var attachments: NSSet?
-    @NSManaged public var quotes: NSSet?
     @NSManaged public var replies: NSSet?
     @NSManaged public var replyTo: Entry?
 
@@ -43,23 +43,6 @@ extension Entry {
 
     @objc(removeAttachments:)
     @NSManaged public func removeFromAttachments(_ values: NSSet)
-
-}
-
-// MARK: Generated accessors for quotes
-extension Entry {
-
-    @objc(addQuotesObject:)
-    @NSManaged public func addToQuotes(_ value: Quote)
-
-    @objc(removeQuotesObject:)
-    @NSManaged public func removeFromQuotes(_ value: Quote)
-
-    @objc(addQuotes:)
-    @NSManaged public func addToQuotes(_ values: NSSet)
-
-    @objc(removeQuotes:)
-    @NSManaged public func removeFromQuotes(_ values: NSSet)
 
 }
 
