@@ -12,9 +12,10 @@ import CoreData
 class EntryDetailsViewController: UIViewController {
 
     // MARK: - Property
-    var detailview = UIView()
-    var textView = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
-    var replyButton = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
+    var detailview      = UIView()
+    var textView        = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
+    var quoteTextView   = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
+    var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
@@ -40,6 +41,7 @@ class EntryDetailsViewController: UIViewController {
         view.addSubview(detailview)
         view.addSubview(textView)
         view.addSubview(replyButton)
+        view.addSubview(quoteTextView)
     }
     
     func setupNavigationBar() {
@@ -57,7 +59,17 @@ class EntryDetailsViewController: UIViewController {
     }
     
     func setupViews() {
-        textView.font               = UIFont.systemFont(ofSize: 14)
+        quoteTextView.font              = UIFont.systemFont(ofSize: 13)
+        quoteTextView.isEditable        = false
+        quoteTextView.isSelectable      = false
+        quoteTextView.isScrollEnabled   = false
+        quoteTextView.backgroundColor   = UIColor.cyan
+        quoteTextView.text              = ""
+        if let quote = entry?.quote {
+            quoteTextView.text          = quote
+        }
+        
+        textView.font               = UIFont.systemFont(ofSize: 15)
         textView.text               = entry?.content
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
@@ -74,8 +86,13 @@ class EntryDetailsViewController: UIViewController {
     }
 
     func setupLayout() {
+        quoteTextView.snp.makeConstraints { (make) in
+            make.top.left.equalTo(view).offset(20)
+            make.right.equalTo(view).offset(-20)
+        }
+        
         textView.snp.makeConstraints { (make) in
-            make.top.equalTo(view).offset(20)
+            make.top.equalTo(quoteTextView).offset(20)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
         }
