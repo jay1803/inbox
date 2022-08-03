@@ -52,7 +52,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         title = "Home"
         navigationItem.largeTitleDisplayMode                    = .always
         navigationController?.navigationBar.prefersLargeTitles  = true
-        navigationController?.navigationBar.isTranslucent       = false
+        navigationController?.navigationBar.isTranslucent       = true
+        
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
                 target: self,

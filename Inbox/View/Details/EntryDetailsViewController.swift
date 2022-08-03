@@ -41,7 +41,10 @@ class EntryDetailsViewController: UIViewController {
         view.addSubview(detailview)
         view.addSubview(textView)
         view.addSubview(replyButton)
-        view.addSubview(quoteTextView)
+        
+        if entry?.quote != nil {
+            view.addSubview(quoteTextView)
+        }
     }
     
     func setupNavigationBar() {
@@ -64,7 +67,7 @@ class EntryDetailsViewController: UIViewController {
         quoteTextView.isSelectable      = false
         quoteTextView.isScrollEnabled   = false
         quoteTextView.backgroundColor   = UIColor.cyan
-        quoteTextView.text              = ""
+
         if let quote = entry?.quote {
             quoteTextView.text          = quote
         }
@@ -91,10 +94,18 @@ class EntryDetailsViewController: UIViewController {
             make.right.equalTo(view).offset(-20)
         }
         
-        textView.snp.makeConstraints { (make) in
-            make.top.equalTo(quoteTextView).offset(20)
-            make.left.equalTo(view).offset(20)
-            make.right.equalTo(view).offset(-20)
+        if entry?.quote != nil {
+            textView.snp.makeConstraints { (make) in
+                make.top.equalTo(quoteTextView).offset(20)
+                make.left.equalTo(view).offset(20)
+                make.right.equalTo(view).offset(-20)
+            }
+        } else {
+            textView.snp.makeConstraints { (make) in
+                make.top.equalTo(view).offset(20)
+                make.left.equalTo(view).offset(20)
+                make.right.equalTo(view).offset(-20)
+            }
         }
         
         replyButton.snp.makeConstraints{ (make) in
