@@ -38,6 +38,10 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = dataSource
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchEntries()
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

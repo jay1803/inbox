@@ -29,6 +29,10 @@ class EntryDetailsViewController: UIViewController {
         setupMenu()
         setupViews()
         setupLayout()
+        
+        if let quote = entry?.quote {
+            updateLayout()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,17 +45,14 @@ class EntryDetailsViewController: UIViewController {
         view.addSubview(detailview)
         view.addSubview(textView)
         view.addSubview(replyButton)
-        
-        if entry?.quote != nil {
-            view.addSubview(quoteTextView)
-        }
+        view.addSubview(quoteTextView)
     }
     
     func setupNavigationBar() {
         title = "Detail"
         navigationItem.largeTitleDisplayMode                    = .never
         navigationController?.navigationBar.prefersLargeTitles  = false
-        navigationController?.navigationBar.isTranslucent       = false
+        navigationController?.navigationBar.isTranslucent       = true
         
         let editButton = UIBarButtonItem(
                 barButtonSystemItem: .edit,
@@ -90,22 +91,16 @@ class EntryDetailsViewController: UIViewController {
 
     func setupLayout() {
         quoteTextView.snp.makeConstraints { (make) in
-            make.top.left.equalTo(view).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
+            make.height.equalTo(0)
         }
         
-        if entry?.quote != nil {
-            textView.snp.makeConstraints { (make) in
-                make.top.equalTo(quoteTextView).offset(20)
-                make.left.equalTo(view).offset(20)
-                make.right.equalTo(view).offset(-20)
-            }
-        } else {
-            textView.snp.makeConstraints { (make) in
-                make.top.equalTo(view).offset(20)
-                make.left.equalTo(view).offset(20)
-                make.right.equalTo(view).offset(-20)
-            }
+        textView.snp.makeConstraints { (make) in
+            make.top.equalTo(quoteTextView).offset(20)
+            make.left.equalTo(view).offset(20)
+            make.right.equalTo(view).offset(-20)
         }
         
         replyButton.snp.makeConstraints{ (make) in
@@ -113,6 +108,14 @@ class EntryDetailsViewController: UIViewController {
             make.centerX.equalTo(view)
             make.width.equalTo(200)
             make.height.equalTo(50)
+        }
+    }
+    
+    func updateLayout() {
+        quoteTextView.snp.remakeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.left.equalTo(view).offset(20)
+            make.right.equalTo(view).offset(-20)
         }
     }
     
