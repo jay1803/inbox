@@ -17,15 +17,14 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     var quoteTextView   = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
     
     var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    lazy var parentsDataSource     = parentsDataSourceConfig()
+    
     var replyToLeftBoard = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     var repliesTableView    = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    lazy var repliesDataSource     = repliesDataSourceConfig()
     
     var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
-    
-    lazy var repliesDataSource     = repliesDataSourceConfig()
-    lazy var parentsDataSource     = parentsDataSourceConfig()
-    
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
@@ -114,8 +113,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     func setupViews() {
         replyToLeftBoard.backgroundColor = UIColor.gray
         
-        parentTableView.backgroundColor = UIColor.red
-        
         quoteTextView.font              = UIFont.systemFont(ofSize: 15)
         quoteTextView.isEditable        = false
         quoteTextView.isSelectable      = false
@@ -200,11 +197,13 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             request.predicate = pred
             self.entry = try context.fetch(request).first
             DispatchQueue.main.async {
+                self.textView.reloadInputViews()
                 if let replies = entry.replies {
                     var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     snapshot.appendSections([.all])
                     snapshot.appendItems(self.entry!.replies!.allObjects as! [Entry], toSection: .all)
                     self.repliesDataSource.apply(snapshot)
+                    self.repliesTableView.reloadData()
                 }
                 if let parentEntry = entry.replyTo {
                     self.parentEntries = self.getReplyTo(of: entry)
@@ -212,8 +211,8 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
                     parentSnapshot.appendSections([.all])
                     parentSnapshot.appendItems(self.parentEntries!, toSection: .all)
                     self.parentsDataSource.apply(parentSnapshot)
+                    self.parentTableView.reloadData()
                 }
-                self.textView.reloadInputViews()
             }
         } catch {
             print("Get entry failed...")
