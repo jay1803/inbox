@@ -16,7 +16,6 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Property
     var path = NSHomeDirectory()
-    let data = ["one", "two", "three"]
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [Entry]?
     lazy var dataSource = configureDataSource()

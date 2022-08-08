@@ -9,20 +9,32 @@ import UIKit
 import SnapKit
 import CoreData
 
-class EntryDetailsViewController: UIViewController {
+class EntryDetailsViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Property
     var detailview      = UIView()
     var textView        = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
     var quoteTextView   = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
+    
+    var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var replyToLeftBoard = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    
+    var repliesTableView    = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    
     var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
+    
+    lazy var repliesDataSource     = repliesDataSourceConfig()
+    lazy var parentsDataSource     = parentsDataSourceConfig()
+    
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
+    var parentEntries: [Entry]?
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchEntry()
         
         addSubviews()
         setupNavigationBar()
@@ -30,14 +42,48 @@ class EntryDetailsViewController: UIViewController {
         setupViews()
         setupLayout()
         
-        if let quote = entry?.quote {
-            updateLayout()
+        if entry?.replyTo != nil {
+            self.parentEntries = getReplyTo(of: entry!)
+            parentTableView.snp.remakeConstraints { (make) in
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+                make.left.equalTo(replyToLeftBoard.snp.right)
+                make.right.equalTo(view).offset(-20)
+                make.height.equalTo(parentEntries!.count * 80)
+            }
         }
+        
+        if let quote = entry?.quote {
+            quoteTextView.snp.remakeConstraints { (make) in
+                make.top.equalTo(parentTableView.snp.bottom).offset(20)
+                make.left.equalTo(replyToLeftBoard.snp.right)
+                make.right.equalTo(view).offset(-20)
+            }
+        }
+        
+        if let replies = entry?.replies {
+            repliesTableView.snp.remakeConstraints { (make) in
+                make.width.equalTo(view)
+                make.top.equalTo(textView.snp.bottom)
+                make.height.equalTo(80 * replies.count)
+            }
+        }
+        
+        repliesTableView.register(EntryRepliesTableViewCell.self, forCellReuseIdentifier: EntryRepliesTableViewCell.identifier)
+        repliesTableView.delegate = self
+        repliesTableView.dataSource = repliesDataSource
+        
+        parentTableView.register(ParentEntriesTableViewCell.self, forCellReuseIdentifier: ParentEntriesTableViewCell.identifier)
+        parentTableView.delegate = self
+        parentTableView.dataSource = parentsDataSource
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         detailview.frame = view.bounds
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.fetchEntry()
     }
 
     // MARK: - ViewSetup
@@ -46,6 +92,9 @@ class EntryDetailsViewController: UIViewController {
         view.addSubview(textView)
         view.addSubview(replyButton)
         view.addSubview(quoteTextView)
+        view.addSubview(replyToLeftBoard)
+        view.addSubview(repliesTableView)
+        view.addSubview(parentTableView)
     }
     
     func setupNavigationBar() {
@@ -63,21 +112,25 @@ class EntryDetailsViewController: UIViewController {
     }
     
     func setupViews() {
-        quoteTextView.font              = UIFont.systemFont(ofSize: 13)
+        replyToLeftBoard.backgroundColor = UIColor.gray
+        
+        parentTableView.backgroundColor = UIColor.red
+        
+        quoteTextView.font              = UIFont.systemFont(ofSize: 15)
         quoteTextView.isEditable        = false
         quoteTextView.isSelectable      = false
         quoteTextView.isScrollEnabled   = false
-        quoteTextView.backgroundColor   = UIColor.cyan
+        quoteTextView.backgroundColor   = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+
 
         if let quote = entry?.quote {
             quoteTextView.text          = quote
         }
         
-        textView.font               = UIFont.systemFont(ofSize: 15)
+        textView.font               = UIFont.systemFont(ofSize: 19)
         textView.text               = entry?.content
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
-        textView.backgroundColor    = UIColor.blue
         textView.isEditable         = false
         
         detailview.backgroundColor  = UIColor.systemBackground
@@ -90,32 +143,41 @@ class EntryDetailsViewController: UIViewController {
     }
 
     func setupLayout() {
-        quoteTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+        parentTableView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalTo(replyToLeftBoard.snp.right)
+            make.right.equalTo(view)
+        }
+        
+        replyToLeftBoard.snp.makeConstraints { (make) in
+            make.top.equalTo(parentTableView)
             make.left.equalTo(view).offset(20)
-            make.right.equalTo(view).offset(-20)
+            make.height.equalTo(parentTableView.snp.height)
+            make.width.equalTo(4)
+        }
+        
+        quoteTextView.snp.makeConstraints { (make) in
+            make.top.equalTo(parentTableView.snp.bottom)
+            make.left.equalTo(view)
+            make.right.equalTo(view)
             make.height.equalTo(0)
         }
         
         textView.snp.makeConstraints { (make) in
-            make.top.equalTo(quoteTextView).offset(20)
+            make.top.equalTo(quoteTextView.snp.bottom)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
         }
         
         replyButton.snp.makeConstraints{ (make) in
-            make.top.equalTo(textView).offset(20)
-            make.centerX.equalTo(view)
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.width.equalTo(view)
+            make.height.equalTo(40)
         }
-    }
-    
-    func updateLayout() {
-        quoteTextView.snp.remakeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.left.equalTo(view).offset(20)
-            make.right.equalTo(view).offset(-20)
+        
+        repliesTableView.snp.makeConstraints { (make) in
+            make.top.equalTo(textView.snp.bottom).offset(20)
+            make.width.equalTo(view)
         }
     }
     
@@ -138,11 +200,34 @@ class EntryDetailsViewController: UIViewController {
             request.predicate = pred
             self.entry = try context.fetch(request).first
             DispatchQueue.main.async {
+                if let replies = entry.replies {
+                    var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
+                    snapshot.appendSections([.all])
+                    snapshot.appendItems(self.entry!.replies!.allObjects as! [Entry], toSection: .all)
+                    self.repliesDataSource.apply(snapshot)
+                }
+                if let parentEntry = entry.replyTo {
+                    self.parentEntries = self.getReplyTo(of: entry)
+                    var parentSnapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
+                    parentSnapshot.appendSections([.all])
+                    parentSnapshot.appendItems(self.parentEntries!, toSection: .all)
+                    self.parentsDataSource.apply(parentSnapshot)
+                }
                 self.textView.reloadInputViews()
             }
         } catch {
             print("Get entry failed...")
         }
+    }
+    
+    func getReplyTo(of item: Entry) -> [Entry] {
+        var items: [Entry] = []
+        guard let parentEntry = item.replyTo else { return items }
+        items.append(parentEntry)
+        if let grandEntry = parentEntry.replyTo {
+            items.append(contentsOf: getReplyTo(of: parentEntry))
+        }
+        return items
     }
     
     @objc func editEntry() {
@@ -181,11 +266,10 @@ class EntryDetailsViewController: UIViewController {
         // Save the new reply
         do {
             try self.context.save()
+            self.fetchEntry()
         } catch {
             print("Save reply failed...")
         }
-        
-        self.fetchEntry()
     }
     
     @objc func replyTo() {
@@ -215,7 +299,6 @@ class EntryDetailsViewController: UIViewController {
     @objc func quote(){
         guard let textRange = textView.selectedTextRange else { return }
         guard let selectedText = textView.text(in: textRange) else { return }
-        print("Quote text: \(selectedText)")
         
         let alert = UIAlertController(title: "Reply with quote", message: "\(selectedText)", preferredStyle: .alert)
         alert.addTextField()
@@ -238,6 +321,58 @@ class EntryDetailsViewController: UIViewController {
         alert.addAction(cancel)
         
         self.present(alert, animated: true)
+    }
+    
+    // MARK: - Reply list
+    
+    func repliesDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
+        let cellIdentifier = EntryRepliesTableViewCell.identifier
+        let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: repliesTableView, cellProvider: {tableView, indexPath, entry in
+            let cell = tableView.dequeueReusableCell(withIdentifier: EntryRepliesTableViewCell.identifier, for: indexPath) as! EntryRepliesTableViewCell
+            
+            // TODO: Convert createdAt to String
+            cell.createdAtLabel.text    = entry.content
+            cell.contentLabel.text      = entry.content
+
+            var count = 0
+            if entry.replies != nil {
+                count = entry.replies!.count
+            }
+            cell.repliesCountLabel.text = "\(count)"
+            return cell
+        })
+        return dataSource
+    }
+    
+    func parentsDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
+        let cellIdentifier = ParentEntriesTableViewCell.identifier
+        let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: parentTableView, cellProvider: {tableView, indexPath, entry in
+            let cell = tableView.dequeueReusableCell(withIdentifier: ParentEntriesTableViewCell.identifier, for: indexPath) as! ParentEntriesTableViewCell
+            
+            // TODO: Convert createdAt to String
+            cell.createdAtLabel.text    = entry.content
+            cell.contentLabel.text      = entry.content
+
+            var count = 0
+            if entry.replies != nil {
+                count = entry.replies!.count
+            }
+            cell.repliesCountLabel.text = "\(count)"
+            return cell
+        })
+        return dataSource
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == parentTableView {
+            guard let parentEntries = self.parentEntries else { return 0 }
+            return parentEntries.count
+        }
+        if tableView == repliesTableView {
+            guard let replies = self.entry?.replies else { return 0 }
+            return replies.count
+        }
+        return 0
     }
 
 }
