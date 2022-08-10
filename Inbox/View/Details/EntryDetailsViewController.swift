@@ -12,9 +12,10 @@ import CoreData
 class EntryDetailsViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Property
-    var detailview      = UIView()
-    var textView        = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
-    var quoteTextView   = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
+//    var stackView       = UIStackView()
+    var detailView      = UIView()
+    
+    var textView        = EntryContentView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var parentsDataSource     = parentsDataSourceConfig()
@@ -51,14 +52,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             }
         }
         
-        if let quote = entry?.quote {
-            quoteTextView.snp.remakeConstraints { (make) in
-                make.top.equalTo(parentTableView.snp.bottom).offset(20)
-                make.left.equalTo(replyToLeftBoard.snp.right)
-                make.right.equalTo(view).offset(-20)
-            }
-        }
-        
         if let replies = entry?.replies {
             repliesTableView.snp.remakeConstraints { (make) in
                 make.width.equalTo(view)
@@ -78,7 +71,7 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        detailview.frame = view.bounds
+        detailView.frame = view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,10 +80,9 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - ViewSetup
     func addSubviews() {
-        view.addSubview(detailview)
+        view.addSubview(detailView)
         view.addSubview(textView)
         view.addSubview(replyButton)
-        view.addSubview(quoteTextView)
         view.addSubview(replyToLeftBoard)
         view.addSubview(repliesTableView)
         view.addSubview(parentTableView)
@@ -111,26 +103,13 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     func setupViews() {
+        detailView.backgroundColor = UIColor.systemBackground
+        
+        textView.content = entry?.content
+        textView.quote   = entry?.quote
+        textView.backgroundColor = UIColor.red
+        
         replyToLeftBoard.backgroundColor = UIColor.gray
-        
-        quoteTextView.font              = UIFont.systemFont(ofSize: 15)
-        quoteTextView.isEditable        = false
-        quoteTextView.isSelectable      = false
-        quoteTextView.isScrollEnabled   = false
-        quoteTextView.backgroundColor   = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
-
-
-        if let quote = entry?.quote {
-            quoteTextView.text          = quote
-        }
-        
-        textView.font               = UIFont.systemFont(ofSize: 19)
-        textView.text               = entry?.content
-        textView.isSelectable       = true
-        textView.isScrollEnabled    = false
-        textView.isEditable         = false
-        
-        detailview.backgroundColor  = UIColor.systemBackground
         
         replyButton.setTitle("Reply", for: .normal)
         replyButton.setTitleColor(UIColor.white, for: .normal)
@@ -140,8 +119,15 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
 
     func setupLayout() {
+        
+        textView.snp.makeConstraints { (make) in
+            make.top.equalTo(parentTableView.snp.bottom).offset(20)
+            make.width.equalTo(view)
+            make.height.equalTo(200)
+        }
+        
         parentTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.snp.top)
             make.left.equalTo(replyToLeftBoard.snp.right)
             make.right.equalTo(view)
         }
@@ -153,21 +139,8 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             make.width.equalTo(4)
         }
         
-        quoteTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(parentTableView.snp.bottom)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-            make.height.equalTo(0)
-        }
-        
-        textView.snp.makeConstraints { (make) in
-            make.top.equalTo(quoteTextView.snp.bottom)
-            make.left.equalTo(view).offset(20)
-            make.right.equalTo(view).offset(-20)
-        }
-        
         replyButton.snp.makeConstraints{ (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view.snp.bottom)
             make.width.equalTo(view)
             make.height.equalTo(40)
         }
@@ -296,8 +269,8 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func quote(){
-        guard let textRange = textView.selectedTextRange else { return }
-        guard let selectedText = textView.text(in: textRange) else { return }
+        guard let textRange = textView.textView.selectedTextRange else { return }
+        guard let selectedText = textView.textView.text(in: textRange) else { return }
         
         let alert = UIAlertController(title: "Reply with quote", message: "\(selectedText)", preferredStyle: .alert)
         alert.addTextField()
