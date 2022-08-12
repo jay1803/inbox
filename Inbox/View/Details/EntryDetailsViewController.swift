@@ -22,11 +22,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var parentsDataSource     = parentsDataSourceConfig()
 
-    var repliesTableView    = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    lazy var repliesDataSource     = repliesDataSourceConfig()
-//
-//    var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
-//
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
     var parentEntries: [Entry]?
@@ -54,10 +49,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             replyView.isHidden = true
         }
 
-        repliesTableView.register(EntryRepliesTableViewCell.self, forCellReuseIdentifier: EntryRepliesTableViewCell.identifier)
-        repliesTableView.delegate = self
-        repliesTableView.dataSource = repliesDataSource
-
         parentTableView.register(ParentEntriesTableViewCell.self, forCellReuseIdentifier: ParentEntriesTableViewCell.identifier)
         parentTableView.delegate = self
         parentTableView.dataSource = parentsDataSource
@@ -79,13 +70,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         stackView.addArrangedSubview(replyToView)
         stackView.addArrangedSubview(contentView)
         stackView.addArrangedSubview(replyView)
-//        view.addSubview(contentView)
-//        view.addSubview(detailView)
-//
-//        view.addSubview(replyButton)
-//        view.addSubview(replyToLeftBoard)
-//        view.addSubview(repliesTableView)
-//        view.addSubview(parentTableView)
     }
     
     func setupNavigationBar() {
@@ -126,15 +110,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             replyView.items         = replies.allObjects as! [Entry]
             replyView.frame.size    = replyView.tableView.contentSize
         }
-        
-
-//        replyToLeftBoard.backgroundColor = UIColor.gray
-//
-//        replyButton.setTitle("Reply", for: .normal)
-//        replyButton.setTitleColor(UIColor.white, for: .normal)
-//        replyButton.backgroundColor = UIColor.red
-//        replyButton.addTarget(self, action: #selector(self.replyTo), for: .touchUpInside)
-
     }
 
     func setupLayout() {
@@ -158,32 +133,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         replyView.snp.makeConstraints { (make) in
             make.width.equalTo(stackView)
         }
-        
-        
-        
-//        parentTableView.snp.makeConstraints { (make) in
-//            make.top.equalTo(view.snp.top)
-//            make.left.equalTo(replyToLeftBoard.snp.right)
-//            make.right.equalTo(view)
-//        }
-//
-//        replyToLeftBoard.snp.makeConstraints { (make) in
-//            make.top.equalTo(parentTableView)
-//            make.left.equalTo(view).offset(20)
-//            make.height.equalTo(parentTableView.snp.height)
-//            make.width.equalTo(4)
-//        }
-//
-//        replyButton.snp.makeConstraints{ (make) in
-//            make.bottom.equalTo(view.snp.bottom)
-//            make.width.equalTo(view)
-//            make.height.equalTo(40)
-//        }
-//
-//        repliesTableView.snp.makeConstraints { (make) in
-//            make.top.equalTo(contentView.snp.bottom).offset(20)
-//            make.width.equalTo(view)
-//        }
     }
     
     func setupMenu() {
@@ -340,24 +289,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Reply list
     
-    func repliesDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
-        let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: repliesTableView, cellProvider: {tableView, indexPath, entry in
-            let cell = tableView.dequeueReusableCell(withIdentifier: EntryRepliesTableViewCell.identifier, for: indexPath) as! EntryRepliesTableViewCell
-            
-            // TODO: Convert createdAt to String
-            cell.createdAtLabel.text    = entry.content
-            cell.contentLabel.text      = entry.content
-
-            var count = 0
-            if entry.replies != nil {
-                count = entry.replies!.count
-            }
-            cell.repliesCountLabel.text = "\(count)"
-            return cell
-        })
-        return dataSource
-    }
-    
     func parentsDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: parentTableView, cellProvider: {tableView, indexPath, entry in
             let cell = tableView.dequeueReusableCell(withIdentifier: ParentEntriesTableViewCell.identifier, for: indexPath) as! ParentEntriesTableViewCell
@@ -380,10 +311,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         if tableView == parentTableView {
             guard let parentEntries = self.parentEntries else { return 0 }
             return parentEntries.count
-        }
-        if tableView == repliesTableView {
-            guard let replies = self.entry?.replies else { return 0 }
-            return replies.count
         }
         return 0
     }
