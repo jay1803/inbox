@@ -46,14 +46,12 @@ class EntryContentView: UIStackView {
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
         textView.isEditable         = false
-        textView.sizeToFit()
         
     }
     
     func setupLayouts() {
         quoteTextView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
+            make.top.left.right.equalToSuperview()
         }
         
         textView.snp.makeConstraints { (make) in

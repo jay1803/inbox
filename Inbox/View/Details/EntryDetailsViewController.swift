@@ -14,7 +14,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     // MARK: - Property
     var scrollview      = UIScrollView()
     var stackView       = UIStackView()
-//    var detailView      = UIView()
     
     var contentView     = EntryContentView()
     lazy var replyView       = EntryRepliesView()
@@ -22,9 +21,7 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     
     var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var parentsDataSource     = parentsDataSourceConfig()
-//
-//    var replyToLeftBoard = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//
+
     var repliesTableView    = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var repliesDataSource     = repliesDataSourceConfig()
 //
@@ -45,18 +42,18 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         setupViews()
         setupLayout()
         
-        if entry?.replyTo == nil {
+        if entry?.quote == nil {
             contentView.quoteTextView.isHidden = true
         }
-//
-//        if let replies = entry?.replies {
-//            repliesTableView.snp.remakeConstraints { (make) in
-//                make.width.equalTo(view)
-//                make.top.equalTo(contentView.snp.bottom)
-//                make.height.equalTo(80 * replies.count)
-//            }
-//        }
-//
+        
+        if entry?.replyTo == nil {
+            replyToView.isHidden = true
+        }
+        
+        if entry?.replies == nil {
+            replyView.isHidden = true
+        }
+
         repliesTableView.register(EntryRepliesTableViewCell.self, forCellReuseIdentifier: EntryRepliesTableViewCell.identifier)
         repliesTableView.delegate = self
         repliesTableView.dataSource = repliesDataSource
@@ -69,7 +66,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollview.frame = view.bounds
-        print(contentView.bounds)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,11 +118,15 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         
         contentView.quoteTextView.text   = entry?.quote
         contentView.textView.text = entry?.content
-        contentView.sizeToFit()
         
         replyToView.backgroundColor = UIColor.blue
         
         replyView.backgroundColor   = UIColor.green
+        if let replies = entry?.replies {
+            replyView.items         = replies.allObjects as! [Entry]
+            replyView.frame.size    = replyView.tableView.contentSize
+        }
+        
 
 //        replyToLeftBoard.backgroundColor = UIColor.gray
 //
@@ -157,7 +157,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         
         replyView.snp.makeConstraints { (make) in
             make.width.equalTo(stackView)
-            make.height.equalTo(90)
         }
         
         
@@ -211,8 +210,16 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
                     var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     snapshot.appendSections([.all])
                     snapshot.appendItems(self.entry!.replies!.allObjects as! [Entry], toSection: .all)
-                    self.repliesDataSource.apply(snapshot)
-                    self.repliesTableView.reloadData()
+                    self.replyView.dataSource.apply(snapshot)
+                    self.replyView.items = replies.allObjects as! [Entry]
+                    self.replyView.tableView.sizeThatFits(self.replyView.tableView.contentSize)
+                    self.replyView.snp.remakeConstraints { (make) in
+                        make.height.equalTo(self.replyView.tableView.contentSize.height)
+                    }
+                    self.replyView.tableView.snp.remakeConstraints { (make) in
+                        make.top.left.right.bottom.equalToSuperview()
+                    }
+                    self.replyView.tableView.reloadData()
                 }
                 if let parentEntry = entry.replyTo {
                     self.parentEntries = self.getReplyTo(of: entry)
