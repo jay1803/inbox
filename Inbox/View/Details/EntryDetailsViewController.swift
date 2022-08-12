@@ -221,7 +221,7 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
                     }
                     self.replyView.tableView.reloadData()
                 }
-                if let parentEntry = entry.replyTo {
+                if entry.replyTo != nil {
                     self.parentEntries = self.getReplyTo(of: entry)
                     var parentSnapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     parentSnapshot.appendSections([.all])
@@ -239,7 +239,7 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         var items: [Entry] = []
         guard let parentEntry = item.replyTo else { return items }
         items.append(parentEntry)
-        if let grandEntry = parentEntry.replyTo {
+        if parentEntry.replyTo != nil {
             items.append(contentsOf: getReplyTo(of: parentEntry))
         }
         return items
@@ -341,7 +341,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     // MARK: - Reply list
     
     func repliesDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
-        let cellIdentifier = EntryRepliesTableViewCell.identifier
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: repliesTableView, cellProvider: {tableView, indexPath, entry in
             let cell = tableView.dequeueReusableCell(withIdentifier: EntryRepliesTableViewCell.identifier, for: indexPath) as! EntryRepliesTableViewCell
             
@@ -360,7 +359,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     func parentsDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
-        let cellIdentifier = ParentEntriesTableViewCell.identifier
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: parentTableView, cellProvider: {tableView, indexPath, entry in
             let cell = tableView.dequeueReusableCell(withIdentifier: ParentEntriesTableViewCell.identifier, for: indexPath) as! ParentEntriesTableViewCell
             

@@ -152,7 +152,6 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     // MARK: - Data source
     
     func configureDataSource() -> UITableViewDiffableDataSource<Section, Entry> {
-        let cellIdentifier = EntryTableViewCell.identifier
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: tableView, cellProvider: {tableView, indexPath, entry in
             let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
             
