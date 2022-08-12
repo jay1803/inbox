@@ -12,21 +12,24 @@ import CoreData
 class EntryDetailsViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - Property
-//    var stackView       = UIStackView()
-    var detailView      = UIView()
+    var scrollview      = UIScrollView()
+    var stackView       = UIStackView()
+//    var detailView      = UIView()
     
-    var textView        = EntryContentView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var contentView     = EntryContentView()
+    lazy var replyView       = EntryRepliesView()
+    lazy var replyToView     = EntryReplyToView()
     
     var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var parentsDataSource     = parentsDataSourceConfig()
-    
-    var replyToLeftBoard = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    
+//
+//    var replyToLeftBoard = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//
     var repliesTableView    = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     lazy var repliesDataSource     = repliesDataSourceConfig()
-    
-    var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
-    
+//
+//    var replyButton     = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 48))
+//
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
     var parentEntries: [Entry]?
@@ -42,28 +45,22 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         setupViews()
         setupLayout()
         
-        if entry?.replyTo != nil {
-            self.parentEntries = getReplyTo(of: entry!)
-            parentTableView.snp.remakeConstraints { (make) in
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-                make.left.equalTo(replyToLeftBoard.snp.right)
-                make.right.equalTo(view).offset(-20)
-                make.height.equalTo(parentEntries!.count * 80)
-            }
+        if entry?.replyTo == nil {
+            contentView.quoteTextView.isHidden = true
         }
-        
-        if let replies = entry?.replies {
-            repliesTableView.snp.remakeConstraints { (make) in
-                make.width.equalTo(view)
-                make.top.equalTo(textView.snp.bottom)
-                make.height.equalTo(80 * replies.count)
-            }
-        }
-        
+//
+//        if let replies = entry?.replies {
+//            repliesTableView.snp.remakeConstraints { (make) in
+//                make.width.equalTo(view)
+//                make.top.equalTo(contentView.snp.bottom)
+//                make.height.equalTo(80 * replies.count)
+//            }
+//        }
+//
         repliesTableView.register(EntryRepliesTableViewCell.self, forCellReuseIdentifier: EntryRepliesTableViewCell.identifier)
         repliesTableView.delegate = self
         repliesTableView.dataSource = repliesDataSource
-        
+
         parentTableView.register(ParentEntriesTableViewCell.self, forCellReuseIdentifier: ParentEntriesTableViewCell.identifier)
         parentTableView.delegate = self
         parentTableView.dataSource = parentsDataSource
@@ -71,7 +68,8 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        detailView.frame = view.bounds
+        scrollview.frame = view.bounds
+        print(contentView.bounds)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,12 +78,18 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - ViewSetup
     func addSubviews() {
-        view.addSubview(detailView)
-        view.addSubview(textView)
-        view.addSubview(replyButton)
-        view.addSubview(replyToLeftBoard)
-        view.addSubview(repliesTableView)
-        view.addSubview(parentTableView)
+        view.addSubview(scrollview)
+        scrollview.addSubview(stackView)
+        stackView.addArrangedSubview(replyToView)
+        stackView.addArrangedSubview(contentView)
+        stackView.addArrangedSubview(replyView)
+//        view.addSubview(contentView)
+//        view.addSubview(detailView)
+//
+//        view.addSubview(replyButton)
+//        view.addSubview(replyToLeftBoard)
+//        view.addSubview(repliesTableView)
+//        view.addSubview(parentTableView)
     }
     
     func setupNavigationBar() {
@@ -103,52 +107,84 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     func setupViews() {
-        detailView.backgroundColor = UIColor.systemBackground
+        scrollview.isScrollEnabled          = true
+        scrollview.isDirectionalLockEnabled = true
+        scrollview.contentSize              = stackView.bounds.size
+        scrollview.backgroundColor          = UIColor.systemBackground
+        scrollview.sizeToFit()
         
-        textView.content = entry?.content
-        textView.quote   = entry?.quote
-        textView.backgroundColor = UIColor.red
+        stackView.backgroundColor   = UIColor.systemBackground
+        stackView.axis              = .vertical
+        stackView.distribution      = .equalSpacing
+        stackView.spacing           = 10
+        stackView.alignment         = .fill
+        stackView.sizeToFit()
         
-        replyToLeftBoard.backgroundColor = UIColor.gray
+        contentView.quoteTextView.text   = entry?.quote
+        contentView.textView.text = entry?.content
+        contentView.sizeToFit()
         
-        replyButton.setTitle("Reply", for: .normal)
-        replyButton.setTitleColor(UIColor.white, for: .normal)
-        replyButton.backgroundColor = UIColor.red
-        replyButton.addTarget(self, action: #selector(self.replyTo), for: .touchUpInside)
+        replyToView.backgroundColor = UIColor.blue
         
+        replyView.backgroundColor   = UIColor.green
+
+//        replyToLeftBoard.backgroundColor = UIColor.gray
+//
+//        replyButton.setTitle("Reply", for: .normal)
+//        replyButton.setTitleColor(UIColor.white, for: .normal)
+//        replyButton.backgroundColor = UIColor.red
+//        replyButton.addTarget(self, action: #selector(self.replyTo), for: .touchUpInside)
+
     }
 
     func setupLayout() {
-        
-        textView.snp.makeConstraints { (make) in
-            make.top.equalTo(parentTableView.snp.bottom).offset(20)
-            make.width.equalTo(view)
-            make.height.equalTo(200)
+        scrollview.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
         }
         
-        parentTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top)
-            make.left.equalTo(replyToLeftBoard.snp.right)
-            make.right.equalTo(view)
+        stackView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
         }
         
-        replyToLeftBoard.snp.makeConstraints { (make) in
-            make.top.equalTo(parentTableView)
-            make.left.equalTo(view).offset(20)
-            make.height.equalTo(parentTableView.snp.height)
-            make.width.equalTo(4)
+        contentView.snp.makeConstraints { (make) in
+            make.width.equalTo(stackView)
         }
         
-        replyButton.snp.makeConstraints{ (make) in
-            make.bottom.equalTo(view.snp.bottom)
-            make.width.equalTo(view)
-            make.height.equalTo(40)
+        replyToView.snp.makeConstraints { (make) in
+            make.width.equalTo(stackView)
+            make.height.equalTo(50)
         }
         
-        repliesTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(textView.snp.bottom).offset(20)
-            make.width.equalTo(view)
+        replyView.snp.makeConstraints { (make) in
+            make.width.equalTo(stackView)
+            make.height.equalTo(90)
         }
+        
+        
+        
+//        parentTableView.snp.makeConstraints { (make) in
+//            make.top.equalTo(view.snp.top)
+//            make.left.equalTo(replyToLeftBoard.snp.right)
+//            make.right.equalTo(view)
+//        }
+//
+//        replyToLeftBoard.snp.makeConstraints { (make) in
+//            make.top.equalTo(parentTableView)
+//            make.left.equalTo(view).offset(20)
+//            make.height.equalTo(parentTableView.snp.height)
+//            make.width.equalTo(4)
+//        }
+//
+//        replyButton.snp.makeConstraints{ (make) in
+//            make.bottom.equalTo(view.snp.bottom)
+//            make.width.equalTo(view)
+//            make.height.equalTo(40)
+//        }
+//
+//        repliesTableView.snp.makeConstraints { (make) in
+//            make.top.equalTo(contentView.snp.bottom).offset(20)
+//            make.width.equalTo(view)
+//        }
     }
     
     func setupMenu() {
@@ -170,7 +206,7 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
             request.predicate = pred
             self.entry = try context.fetch(request).first
             DispatchQueue.main.async {
-                self.textView.reloadInputViews()
+                self.contentView.reloadInputViews()
                 if let replies = entry.replies {
                     var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     snapshot.appendSections([.all])
@@ -269,8 +305,8 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func quote(){
-        guard let textRange = textView.textView.selectedTextRange else { return }
-        guard let selectedText = textView.textView.text(in: textRange) else { return }
+        guard let textRange = contentView.textView.selectedTextRange else { return }
+        guard let selectedText = contentView.textView.text(in: textRange) else { return }
         
         let alert = UIAlertController(title: "Reply with quote", message: "\(selectedText)", preferredStyle: .alert)
         alert.addTextField()

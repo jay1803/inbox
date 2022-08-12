@@ -8,70 +8,57 @@
 import UIKit
 import SnapKit
 
-class EntryContentView: UIView {
+class EntryContentView: UIStackView {
     
-    var content: String?
-    var quote: String?
-    
-    var textView        = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
-    var quoteTextView   = UITextView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 0))
+    var textView        = UITextView()
+    var quoteTextView   = UITextView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubviews()
         self.setupViews()
         self.setupLayouts()
-        
-        if let quote = self.quote {
-            quoteTextView.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.snp.top).offset(20)
-                make.left.equalTo(self).offset(20)
-                make.right.equalTo(self).offset(-20)
-            }
-        }
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     // MARK: - View Setup
     func addSubviews() {
-        self.addSubview(textView)
-        self.addSubview(quoteTextView)
+        self.addArrangedSubview(quoteTextView)
+        self.addArrangedSubview(textView)
     }
     
     func setupViews() {
+        self.distribution       = .equalSpacing
+        self.axis               = .vertical
+        self.alignment          = .leading
+        
         quoteTextView.font              = UIFont.systemFont(ofSize: 15)
         quoteTextView.isEditable        = false
         quoteTextView.isSelectable      = false
         quoteTextView.isScrollEnabled   = false
         quoteTextView.backgroundColor   = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
 
-
-        if let quote = self.quote {
-            quoteTextView.text          = quote
-        }
-        
-        textView.font               = UIFont.systemFont(ofSize: 19)
-        textView.text               = self.content
+        textView.font               = UIFont.systemFont(ofSize: 17)
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
         textView.isEditable         = false
+        textView.sizeToFit()
+        
     }
     
     func setupLayouts() {
         quoteTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top)
-            make.left.equalTo(self).offset(20)
-            make.right.equalTo(self).offset(-20)
-            make.height.equalTo(0)
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
         }
         
         textView.snp.makeConstraints { (make) in
             make.top.equalTo(quoteTextView.snp.bottom)
-            make.left.equalTo(self).offset(20)
-            make.right.equalTo(self).offset(-20)
+            make.left.right.bottom.equalToSuperview()
         }
     }
 }
