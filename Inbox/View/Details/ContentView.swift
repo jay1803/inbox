@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EntryContentView: UIStackView {
+class ContentView: UIStackView {
     
     var textView        = UITextView()
     var quoteTextView   = UITextView()

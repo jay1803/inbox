@@ -143,7 +143,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     }
     
     func viewDetail(of entry: Entry) {
-        let viewController = EntryDetailsViewController()
+        let viewController = DetailViewController()
         viewController.entry = entry
         navigationController?.pushViewController(viewController, animated: true)
     }

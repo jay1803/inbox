@@ -1,5 +1,5 @@
 //
-//  EntryRepliesView.swift
+//  EntryReplyToView.swift
 //  Inbox
 //
 //  Created by Max Zhang on 2022/8/10.
@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class EntryRepliesView: UIView, UITableViewDelegate {
-
+class ReplyToView: UIView, UITableViewDelegate {
+    
     // MARK: - Property
     var tableView = UITableView()
     lazy var dataSource = self.dataSourceConfig()
@@ -72,4 +72,5 @@ class EntryRepliesView: UIView, UITableViewDelegate {
         return dataSource
     }
 
+    
 }
