@@ -42,6 +42,7 @@ class EntryDetailsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollview.frame = view.bounds
+        print(replyToView.frame)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,9 +91,6 @@ class EntryDetailsViewController: UIViewController {
         contentView.textView.text           = entry?.content
         contentView.backgroundColor         = UIColor.red
         
-        replyToView.layer.borderWidth   = 2
-        replyToView.layer.borderColor   = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
-        
         if let replies = entry?.replies {
             replyView.items         = replies.allObjects as! [Entry]
             replyView.frame.size    = replyView.tableView.contentSize
@@ -124,7 +122,6 @@ class EntryDetailsViewController: UIViewController {
         
         replyToView.snp.makeConstraints { (make) in
             make.width.equalTo(stackView)
-            make.height.equalTo(50)
         }
         
         replyView.snp.makeConstraints { (make) in
