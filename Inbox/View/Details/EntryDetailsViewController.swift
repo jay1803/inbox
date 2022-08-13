@@ -34,6 +34,8 @@ class EntryDetailsViewController: UIViewController {
         setupMenu()
         setupViews()
         setupLayout()
+        
+        print(entry?.createdAt)
 
         if entry?.quote == nil {
             contentView.quoteTextView.isHidden = true
@@ -43,7 +45,6 @@ class EntryDetailsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollview.frame = view.bounds
-        print(replyToView.frame)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +92,6 @@ class EntryDetailsViewController: UIViewController {
         
         contentView.quoteTextView.text      = entry?.quote
         contentView.textView.text           = entry?.content
-        contentView.backgroundColor         = UIColor.red
         
         if let replies = entry?.replies {
             replyView.items         = replies.allObjects as! [Entry]
@@ -121,8 +121,7 @@ class EntryDetailsViewController: UIViewController {
         }
         
         contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
+            make.width.equalToSuperview()
         }
         
         divider.snp.makeConstraints { (make) in

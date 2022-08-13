@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		507D6C1C2898EB0400564093 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507D6C1A2898EB0400564093 /* Attachment+CoreDataProperties.swift */; };
-		507D6C1E2898EB3A00564093 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507D6C1D2898EB3A00564093 /* Entry+CoreDataProperties.swift */; };
 		509561A2289795BE0044FEE8 /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095619C289795BE0044FEE8 /* Entry+CoreDataClass.swift */; };
 		509561A4289795BE0044FEE8 /* Attachment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095619E289795BE0044FEE8 /* Attachment+CoreDataClass.swift */; };
 		509C4E3A2884539100F629F2 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C4E392884539100F629F2 /* CoreDataStack.swift */; };
@@ -18,6 +17,7 @@
 		50D1A20628A37E5500836279 /* EntryReplyToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A20528A37E5500836279 /* EntryReplyToView.swift */; };
 		50D1A20828A37E5D00836279 /* EntryRepliesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A20728A37E5D00836279 /* EntryRepliesView.swift */; };
 		50D1A20A28A37E6D00836279 /* EntryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A20928A37E6D00836279 /* EntryEditorView.swift */; };
+		50D1A20C28A7F4A800836279 /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A20B28A7F4A800836279 /* Entry+CoreDataProperties.swift */; };
 		50EBA02328914A38003C296C /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EBA02228914A38003C296C /* Help.swift */; };
 		50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */; };
 		50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FF1D9D28681A6B00EE5B51 /* SceneDelegate.swift */; };
@@ -32,7 +32,6 @@
 /* Begin PBXFileReference section */
 		1CA7EB5F2FD7C0D16E434301 /* Pods-Inbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inbox.release.xcconfig"; path = "Target Support Files/Pods-Inbox/Pods-Inbox.release.xcconfig"; sourceTree = "<group>"; };
 		507D6C1A2898EB0400564093 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		507D6C1D2898EB3A00564093 /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5095619C289795BE0044FEE8 /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5095619E289795BE0044FEE8 /* Attachment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		509C4E392884539100F629F2 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		50D1A20528A37E5500836279 /* EntryReplyToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryReplyToView.swift; sourceTree = "<group>"; };
 		50D1A20728A37E5D00836279 /* EntryRepliesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepliesView.swift; sourceTree = "<group>"; };
 		50D1A20928A37E6D00836279 /* EntryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryEditorView.swift; sourceTree = "<group>"; };
+		50D1A20B28A7F4A800836279 /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50EBA02228914A38003C296C /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		50FF1D9828681A6B00EE5B51 /* Inbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FF1D9B28681A6B00EE5B51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		509C4E3B288458DD00F629F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				507D6C1D2898EB3A00564093 /* Entry+CoreDataProperties.swift */,
+				50D1A20B28A7F4A800836279 /* Entry+CoreDataProperties.swift */,
 				507D6C1A2898EB0400564093 /* Attachment+CoreDataProperties.swift */,
 				5095619C289795BE0044FEE8 /* Entry+CoreDataClass.swift */,
 				5095619E289795BE0044FEE8 /* Attachment+CoreDataClass.swift */,
@@ -305,13 +305,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D1A20C28A7F4A800836279 /* Entry+CoreDataProperties.swift in Sources */,
 				509C4E3A2884539100F629F2 /* CoreDataStack.swift in Sources */,
 				50FF1DA028681A6B00EE5B51 /* EntryListViewController.swift in Sources */,
 				50D1A20828A37E5D00836279 /* EntryRepliesView.swift in Sources */,
 				50FF1DB42868253100EE5B51 /* EntryTableViewCell.swift in Sources */,
 				50FF1D9C28681A6B00EE5B51 /* AppDelegate.swift in Sources */,
 				50EBA02328914A38003C296C /* Help.swift in Sources */,
-				507D6C1E2898EB3A00564093 /* Entry+CoreDataProperties.swift in Sources */,
 				50D1A20428A376C800836279 /* EntryContentView.swift in Sources */,
 				509561A4289795BE0044FEE8 /* Attachment+CoreDataClass.swift in Sources */,
 				50FF1D9E28681A6B00EE5B51 /* SceneDelegate.swift in Sources */,

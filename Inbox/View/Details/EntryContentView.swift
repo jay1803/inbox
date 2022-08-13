@@ -46,6 +46,7 @@ class EntryContentView: UIStackView {
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
         textView.isEditable         = false
+        textView.contentInset       = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         
     }
     
@@ -55,8 +56,7 @@ class EntryContentView: UIStackView {
         }
         
         textView.snp.makeConstraints { (make) in
-            make.top.equalTo(quoteTextView.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }

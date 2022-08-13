@@ -9,12 +9,12 @@
     </entity>
     <entity name="Entry" representedClassName="Entry" syncable="YES">
         <attribute name="content" attributeType="String" defaultValueString="Sample content" spotlightIndexingEnabled="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="-978336000" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" defaultValueString="CDCC304D-0000-0000-0000-B9AB6A43518B" usesScalarValueType="NO"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isFavorated" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="quote" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" attributeType="Date" defaultDateTimeInterval="-978336000" usesScalarValueType="NO"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="attachedTo" inverseEntity="Attachment"/>
         <relationship name="replies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Entry" inverseName="replyTo" inverseEntity="Entry"/>
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="replies" inverseEntity="Entry"/>

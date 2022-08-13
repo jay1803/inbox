@@ -2,7 +2,7 @@
 //  Entry+CoreDataProperties.swift
 //  Inbox
 //
-//  Created by Max Zhang on 2022/8/2.
+//  Created by Max Zhang on 2022/8/13.
 //
 //
 
@@ -21,8 +21,8 @@ extension Entry {
     @NSManaged public var id: UUID?
     @NSManaged public var isArchived: Bool
     @NSManaged public var isFavorated: Bool
-    @NSManaged public var updatedAt: Date?
     @NSManaged public var quote: String?
+    @NSManaged public var updatedAt: Date?
     @NSManaged public var attachments: NSSet?
     @NSManaged public var replies: NSSet?
     @NSManaged public var replyTo: Entry?
