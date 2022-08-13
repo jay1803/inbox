@@ -117,7 +117,8 @@ class EntryDetailsViewController: UIViewController {
         }
         
         contentView.snp.makeConstraints { (make) in
-            make.width.equalTo(stackView)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
         }
         
         replyToView.snp.makeConstraints { (make) in
