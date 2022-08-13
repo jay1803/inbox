@@ -55,8 +55,11 @@ class EntryReplyToView: UIView, UITableViewDelegate {
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: tableView, cellProvider: {tableView, indexPath, entry in
             let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
             
-            // TODO: Convert createdAt to String
-            cell.createdAtLabel.text    = entry.content
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            
+            cell.createdAtLabel.text    = dateFormatter.string(from: entry.createdAt!)
             cell.contentLabel.text      = entry.content
 
             var count = 0
