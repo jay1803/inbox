@@ -27,8 +27,8 @@ class ContentView: UIStackView {
     
     // MARK: - View Setup
     func addSubviews() {
-        self.addArrangedSubview(quoteTextView)
         self.addArrangedSubview(textView)
+        self.addArrangedSubview(quoteTextView)
     }
     
     func setupViews() {
@@ -36,11 +36,14 @@ class ContentView: UIStackView {
         self.axis               = .vertical
         self.alignment          = .leading
         
-        quoteTextView.font              = UIFont.systemFont(ofSize: 15)
-        quoteTextView.isEditable        = false
-        quoteTextView.isSelectable      = false
-        quoteTextView.isScrollEnabled   = false
-        quoteTextView.backgroundColor   = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+        quoteTextView.font                  = UIFont.systemFont(ofSize: 15)
+        quoteTextView.isEditable            = false
+        quoteTextView.isSelectable          = false
+        quoteTextView.isScrollEnabled       = false
+        quoteTextView.contentInset          = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        quoteTextView.layer.borderWidth     = 1
+        quoteTextView.layer.borderColor     = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        quoteTextView.layer.cornerRadius    = 10
 
         textView.font               = UIFont.systemFont(ofSize: 17)
         textView.isSelectable       = true
@@ -51,11 +54,12 @@ class ContentView: UIStackView {
     }
     
     func setupLayouts() {
-        quoteTextView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
+        textView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
         }
         
-        textView.snp.makeConstraints { (make) in
+        quoteTextView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
