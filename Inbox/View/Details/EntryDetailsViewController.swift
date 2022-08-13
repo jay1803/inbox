@@ -16,6 +16,7 @@ class EntryDetailsViewController: UIViewController {
     var stackView       = UIStackView()
     
     var contentView         = EntryContentView()
+    var divider             = UIView()
     lazy var replyView      = EntryRepliesView()
     lazy var replyToView    = EntryReplyToView()
     lazy var noReplyView    = UITextView()
@@ -55,6 +56,7 @@ class EntryDetailsViewController: UIViewController {
         scrollview.addSubview(stackView)
         stackView.addArrangedSubview(replyToView)
         stackView.addArrangedSubview(contentView)
+        stackView.addArrangedSubview(divider)
         stackView.addArrangedSubview(replyView)
         stackView.addArrangedSubview(noReplyView)
     }
@@ -105,6 +107,8 @@ class EntryDetailsViewController: UIViewController {
         noReplyView.font            = UIFont.systemFont(ofSize: 15)
         noReplyView.textColor       = UIColor.gray
         noReplyView.textAlignment   = .center
+        
+        divider.backgroundColor     = UIColor(red: 0, green: 0, blue: 0, alpha: 0.12)
     }
 
     func setupLayout() {
@@ -119,6 +123,11 @@ class EntryDetailsViewController: UIViewController {
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
+        }
+        
+        divider.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.height.equalTo(1)
         }
         
         replyToView.snp.makeConstraints { (make) in
