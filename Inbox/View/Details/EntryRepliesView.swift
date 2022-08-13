@@ -22,10 +22,7 @@ class EntryRepliesView: UIView, UITableViewDelegate {
         self.setupViews()
         self.setupLayout()
         
-        print(self.items)
-        print(tableView.contentSize)
-        
-        tableView.register(EntryRepliesTableViewCell.self, forCellReuseIdentifier: EntryRepliesTableViewCell.identifier)
+        tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: EntryTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = dataSource
     }
@@ -56,7 +53,7 @@ class EntryRepliesView: UIView, UITableViewDelegate {
     
     func dataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
         let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: tableView, cellProvider: {tableView, indexPath, entry in
-            let cell = tableView.dequeueReusableCell(withIdentifier: EntryRepliesTableViewCell.identifier, for: indexPath) as! EntryRepliesTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.identifier, for: indexPath) as! EntryTableViewCell
             
             // TODO: Convert createdAt to String
             cell.createdAtLabel.text    = entry.content

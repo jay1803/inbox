@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import CoreData
 
-class EntryDetailsViewController: UIViewController, UITableViewDelegate {
+class EntryDetailsViewController: UIViewController {
 
     // MARK: - Property
     var scrollview      = UIScrollView()
@@ -18,13 +18,9 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     var contentView     = EntryContentView()
     lazy var replyView       = EntryRepliesView()
     lazy var replyToView     = EntryReplyToView()
-    
-    var parentTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    lazy var parentsDataSource     = parentsDataSourceConfig()
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
-    var parentEntries: [Entry]?
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -48,10 +44,6 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         if entry?.replies == nil {
             replyView.isHidden = true
         }
-
-        parentTableView.register(ParentEntriesTableViewCell.self, forCellReuseIdentifier: ParentEntriesTableViewCell.identifier)
-        parentTableView.delegate = self
-        parentTableView.dataSource = parentsDataSource
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,10 +97,14 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
         
         replyToView.backgroundColor = UIColor.blue
         
-        replyView.backgroundColor   = UIColor.green
         if let replies = entry?.replies {
             replyView.items         = replies.allObjects as! [Entry]
             replyView.frame.size    = replyView.tableView.contentSize
+        }
+        
+        if entry?.replyTo != nil {
+            replyToView.items       = self.getReplyTo(of: entry!)
+            replyToView.frame.size  = replyToView.tableView.contentSize
         }
     }
 
@@ -166,17 +162,22 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
                         make.height.equalTo(self.replyView.tableView.contentSize.height)
                     }
                     self.replyView.tableView.snp.remakeConstraints { (make) in
-                        make.top.left.right.bottom.equalToSuperview()
+                        make.top.left.bottom.right.equalToSuperview()
                     }
                     self.replyView.tableView.reloadData()
                 }
                 if entry.replyTo != nil {
-                    self.parentEntries = self.getReplyTo(of: entry)
                     var parentSnapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     parentSnapshot.appendSections([.all])
-                    parentSnapshot.appendItems(self.parentEntries!, toSection: .all)
-                    self.parentsDataSource.apply(parentSnapshot)
-                    self.parentTableView.reloadData()
+                    parentSnapshot.appendItems(self.replyToView.items, toSection: .all)
+                    self.replyToView.dataSource.apply(parentSnapshot)
+                    self.replyToView.tableView.reloadData()
+                    self.replyToView.snp.remakeConstraints { (make) in
+                        make.height.equalTo(self.replyToView.tableView.contentSize.height)
+                    }
+                    self.replyToView.tableView.snp.remakeConstraints { (make) in
+                        make.top.left.bottom.right.equalToSuperview()
+                    }
                 }
             }
         } catch {
@@ -288,31 +289,5 @@ class EntryDetailsViewController: UIViewController, UITableViewDelegate {
     }
     
     // MARK: - Reply list
-    
-    func parentsDataSourceConfig() -> UITableViewDiffableDataSource<Section, Entry> {
-        let dataSource = UITableViewDiffableDataSource<Section, Entry>(tableView: parentTableView, cellProvider: {tableView, indexPath, entry in
-            let cell = tableView.dequeueReusableCell(withIdentifier: ParentEntriesTableViewCell.identifier, for: indexPath) as! ParentEntriesTableViewCell
-            
-            // TODO: Convert createdAt to String
-            cell.createdAtLabel.text    = entry.content
-            cell.contentLabel.text      = entry.content
-
-            var count = 0
-            if entry.replies != nil {
-                count = entry.replies!.count
-            }
-            cell.repliesCountLabel.text = "\(count)"
-            return cell
-        })
-        return dataSource
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == parentTableView {
-            guard let parentEntries = self.parentEntries else { return 0 }
-            return parentEntries.count
-        }
-        return 0
-    }
 
 }
