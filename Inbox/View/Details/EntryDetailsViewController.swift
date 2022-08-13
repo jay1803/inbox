@@ -15,9 +15,10 @@ class EntryDetailsViewController: UIViewController {
     var scrollview      = UIScrollView()
     var stackView       = UIStackView()
     
-    var contentView     = EntryContentView()
-    lazy var replyView       = EntryRepliesView()
-    lazy var replyToView     = EntryReplyToView()
+    var contentView         = EntryContentView()
+    lazy var replyView      = EntryRepliesView()
+    lazy var replyToView    = EntryReplyToView()
+    lazy var noReplyView    = UITextView()
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var entry: Entry?
@@ -32,17 +33,9 @@ class EntryDetailsViewController: UIViewController {
         setupMenu()
         setupViews()
         setupLayout()
-        
+
         if entry?.quote == nil {
             contentView.quoteTextView.isHidden = true
-        }
-        
-        if entry?.replyTo == nil {
-            replyToView.isHidden = true
-        }
-        
-        if entry?.replies == nil {
-            replyView.isHidden = true
         }
     }
     
@@ -62,6 +55,7 @@ class EntryDetailsViewController: UIViewController {
         stackView.addArrangedSubview(replyToView)
         stackView.addArrangedSubview(contentView)
         stackView.addArrangedSubview(replyView)
+        stackView.addArrangedSubview(noReplyView)
     }
     
     func setupNavigationBar() {
@@ -92,10 +86,12 @@ class EntryDetailsViewController: UIViewController {
         stackView.alignment         = .fill
         stackView.sizeToFit()
         
-        contentView.quoteTextView.text   = entry?.quote
-        contentView.textView.text = entry?.content
+        contentView.quoteTextView.text      = entry?.quote
+        contentView.textView.text           = entry?.content
+        contentView.backgroundColor         = UIColor.red
         
-        replyToView.backgroundColor = UIColor.blue
+        replyToView.layer.borderWidth   = 2
+        replyToView.layer.borderColor   = CGColor(red: 0, green: 0, blue: 1, alpha: 1)
         
         if let replies = entry?.replies {
             replyView.items         = replies.allObjects as! [Entry]
@@ -106,6 +102,11 @@ class EntryDetailsViewController: UIViewController {
             replyToView.items       = self.getReplyTo(of: entry!)
             replyToView.frame.size  = replyToView.tableView.contentSize
         }
+        
+        noReplyView.text            = "No replies for this note"
+        noReplyView.font            = UIFont.systemFont(ofSize: 15)
+        noReplyView.textColor       = UIColor.gray
+        noReplyView.textAlignment   = .center
     }
 
     func setupLayout() {
@@ -129,6 +130,11 @@ class EntryDetailsViewController: UIViewController {
         replyView.snp.makeConstraints { (make) in
             make.width.equalTo(stackView)
         }
+        
+        noReplyView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.height.equalTo(200)
+        }
     }
     
     func setupMenu() {
@@ -151,12 +157,13 @@ class EntryDetailsViewController: UIViewController {
             self.entry = try context.fetch(request).first
             DispatchQueue.main.async {
                 self.contentView.reloadInputViews()
-                if let replies = entry.replies {
+                if entry.replies?.anyObject() != nil {
+                    let replies = entry.replies?.allObjects
                     var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
                     snapshot.appendSections([.all])
-                    snapshot.appendItems(self.entry!.replies!.allObjects as! [Entry], toSection: .all)
+                    snapshot.appendItems(replies as! [Entry], toSection: .all)
                     self.replyView.dataSource.apply(snapshot)
-                    self.replyView.items = replies.allObjects as! [Entry]
+                    self.replyView.items = replies as! [Entry]
                     self.replyView.tableView.sizeThatFits(self.replyView.tableView.contentSize)
                     self.replyView.snp.remakeConstraints { (make) in
                         make.height.equalTo(self.replyView.tableView.contentSize.height)
@@ -164,6 +171,7 @@ class EntryDetailsViewController: UIViewController {
                     self.replyView.tableView.snp.remakeConstraints { (make) in
                         make.top.left.bottom.right.equalToSuperview()
                     }
+                    self.noReplyView.isHidden = true
                     self.replyView.tableView.reloadData()
                 }
                 if entry.replyTo != nil {
