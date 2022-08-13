@@ -199,6 +199,10 @@ class EntryDetailsViewController: UIViewController {
         }
     }
     
+    func getReplies() {
+        // TODO: - Get replies by createdAt
+    }
+    
     func getReplyTo(of item: Entry) -> [Entry] {
         var items: [Entry] = []
         guard let parentEntry = item.replyTo else { return items }
