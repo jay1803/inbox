@@ -43,8 +43,6 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateLayout()
-        print(appFolder)
-        print(listView.frame)
     }
     
     // MARK: - ViewSetup
@@ -90,16 +88,11 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         listView.snp.makeConstraints { (make) in
             make.top.right.bottom.left.equalToSuperview()
         }
+        
         tableView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview().offset(-80)
-        }
-        
-        editorView.snp.makeConstraints { (make) in
-            make.height.equalTo(40)
-            make.width.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
     }
     
@@ -109,7 +102,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
             make.bottom.equalTo(editorView.snp.top).offset(10)
         }
         editorView.snp.remakeConstraints { (make) in
-            make.right.left.equalToSuperview()
+            make.width.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.height.equalTo(120)
         }

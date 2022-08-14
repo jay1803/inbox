@@ -30,13 +30,10 @@ class EntryTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     // MARK: Setup view
@@ -59,19 +56,21 @@ class EntryTableViewCell: UITableViewCell {
     
     func setupLayout() {
         createdAtLabel.snp.makeConstraints { (make) in
-            make.top.left.equalTo(self.contentView).offset(20)
+            make.top.equalToSuperview().offset(15)
+            make.left.equalToSuperview().offset(20)
             make.right.equalTo(repliesCountLabel).offset(-20)
         }
         
         contentLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView).offset(20)
-            make.right.bottom.equalTo(self.contentView).offset(-20)
-            make.top.equalTo(createdAtLabel).offset(20)
+            make.top.equalTo(createdAtLabel.snp.bottom).offset(5)
+            make.left.equalTo(createdAtLabel)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-15)
         }
         
         repliesCountLabel.snp.makeConstraints { (make) in
             make.top.equalTo(createdAtLabel)
-            make.right.equalTo(self.contentView).offset(-20)
+            make.right.equalTo(contentLabel.snp.right)
         }
     }
 

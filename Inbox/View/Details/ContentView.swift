@@ -32,9 +32,13 @@ class ContentView: UIStackView {
     }
     
     func setupViews() {
-        self.distribution       = .equalSpacing
+        self.distribution       = .fill
         self.axis               = .vertical
         self.alignment          = .leading
+        self.spacing            = UIStackView.spacingUseSystem
+        
+        self.isLayoutMarginsRelativeArrangement = true
+        self.directionalLayoutMargins           = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20)
         
         quoteTextView.font                  = UIFont.systemFont(ofSize: 15)
         quoteTextView.isEditable            = false
@@ -49,17 +53,13 @@ class ContentView: UIStackView {
         textView.isSelectable       = true
         textView.isScrollEnabled    = false
         textView.isEditable         = false
-        textView.contentInset       = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         
     }
     
     func setupLayouts() {
-        textView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview()
-        }
-        
         quoteTextView.snp.makeConstraints { (make) in
-            make.width.equalToSuperview()
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview()
         }
     }

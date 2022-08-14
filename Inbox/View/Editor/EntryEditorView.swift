@@ -51,14 +51,9 @@ class EntryEditorView: UIStackView {
         textView.contentInset       = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 0)
         textView.layer.borderColor  = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         textView.layer.cornerRadius = 20
-        textView.text   = "This is a sample text."
     }
 
     func setupLayout() {
-        textView.snp.makeConstraints { (make) in
-            make.height.equalTo(80)
-        }
-        
         sendButton.snp.makeConstraints { (make) in
             make.height.equalTo(40)
         }
