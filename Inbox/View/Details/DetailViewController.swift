@@ -92,6 +92,7 @@ class DetailViewController: UIViewController {
         
         contentView.quoteTextView.text      = entry?.quote
         contentView.textView.text           = entry?.content
+
         
         if let replies = entry?.replies {
             replyView.items         = replies.allObjects as! [Entry]

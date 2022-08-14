@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SnapKit
 
 enum Section {
     case all
@@ -20,7 +21,9 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     var items: [Entry]?
     lazy var dataSource = configureDataSource()
     
-    private var tableView: UITableView = UITableView()
+    private var listView   = UIView()
+    private var tableView   = UITableView()
+    private var editorView  = EntryEditorView()
     
     // MARK: - LifeCycle
 
@@ -28,14 +31,9 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         fetchEntries()
         
-        view.addSubview(tableView)
-        
+        addSubviews()
         setupNavigationBar()
-        
-        tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: EntryTableViewCell.identifier)
-        
-        tableView.delegate = self
-        tableView.dataSource = dataSource
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,12 +42,17 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
-        
+        updateLayout()
         print(appFolder)
+        print(listView.frame)
     }
     
     // MARK: - ViewSetup
+    func addSubviews() {
+        view.addSubview(listView)
+        listView.addSubview(tableView)
+        listView.addSubview(editorView)
+    }
     
     func setupNavigationBar() {
         title = "Home"
@@ -69,11 +72,47 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.leftBarButtonItem   = editButton
         self.navigationItem.rightBarButtonItem  = addButton
     }
+    
+    func setupViews() {
+        listView.frame  = view.bounds
+        listView.backgroundColor    = UIColor.systemBackground
+        
+        tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: EntryTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = dataSource
+        tableView.separatorStyle = .singleLine
+        
+        editorView.backgroundColor = UIColor(red: 214/255, green: 217/255, blue: 222/255, alpha: 1)
+    }
 
     
     func setupLayout() {
-        tableView.frame = UIScreen.main.bounds
-        tableView.separatorStyle = .singleLine
+        listView.snp.makeConstraints { (make) in
+            make.top.right.bottom.left.equalToSuperview()
+        }
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-80)
+        }
+        
+        editorView.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func updateLayout() {
+        tableView.snp.remakeConstraints { (make) in
+            make.top.right.left.equalToSuperview()
+            make.bottom.equalTo(editorView.snp.top).offset(10)
+        }
+        editorView.snp.remakeConstraints { (make) in
+            make.right.left.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(120)
+        }
     }
     
     // MARK: - Private
