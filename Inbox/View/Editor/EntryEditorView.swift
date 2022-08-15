@@ -11,7 +11,7 @@ import SnapKit
 class EntryEditorView: UIStackView {
     // MARK: - Property
     var sendButton  = UIButton()
-    var textView    = UITextView()
+    var textField   = UITextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,7 @@ class EntryEditorView: UIStackView {
     
     // MARK: - ViewSetup
     func addSubviews() {
-        self.addArrangedSubview(textView)
+        self.addArrangedSubview(textField)
         self.addArrangedSubview(sendButton)
     }
 
@@ -45,12 +45,13 @@ class EntryEditorView: UIStackView {
         sendButton.layer.cornerRadius   = 20
         sendButton.titleLabel?.font     = .systemFont(ofSize: 15)
         
+        textField.font              = .systemFont(ofSize: 15)
+        textField.borderStyle       = .roundedRect
+        textField.clearButtonMode   = .whileEditing
+        textField.placeholder       = "Your note..."
         
-        textView.isEditable         = true
-        textView.font               = .systemFont(ofSize: 15)
-        textView.contentInset       = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 0)
-        textView.layer.borderColor  = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-        textView.layer.cornerRadius = 20
+        textField.spellCheckingType     = .yes
+        textField.autocorrectionType    = .yes
     }
 
     func setupLayout() {
