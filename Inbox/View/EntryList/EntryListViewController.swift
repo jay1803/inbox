@@ -34,6 +34,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         addSubviews()
         setupNavigationBar()
         setupViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,14 +94,14 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         tableView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.width.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-80)
+            make.bottom.equalTo(editorView.snp.top).offset(-10)
         }
     }
     
     func updateLayout() {
         tableView.snp.remakeConstraints { (make) in
             make.top.right.left.equalToSuperview()
-            make.bottom.equalTo(editorView.snp.top).offset(10)
+            make.bottom.equalTo(editorView.snp.top).offset(-10)
         }
         editorView.snp.remakeConstraints { (make) in
             make.width.equalToSuperview()
@@ -109,6 +111,15 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     }
     
     // MARK: - Private
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        print("Keyboard will shown.....")
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        
+        editorView.frame.origin.y = screenSize.height - keyboardSize.height - 110
+    }
 
     func fetchEntries() {
         do {
