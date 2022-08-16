@@ -64,13 +64,8 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
                 barButtonSystemItem: .edit,
                 target: self,
                 action: #selector(EntryListViewController.editEntry))
-        let addButton = UIBarButtonItem(
-                barButtonSystemItem: .add,
-                target: self,
-                action: #selector(EntryListViewController.addEntry))
         
         self.navigationItem.leftBarButtonItem   = editButton
-        self.navigationItem.rightBarButtonItem  = addButton
     }
     
     func setupViews() {
