@@ -106,7 +106,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         editorView.snp.remakeConstraints { (make) in
             make.width.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.height.equalTo(110)
+            make.height.equalTo(60)
         }
     }
     

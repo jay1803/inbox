@@ -10,8 +10,10 @@ import SnapKit
 
 class EntryEditorView: UIStackView {
     // MARK: - Property
-    var sendButton  = UIButton()
-    var textField   = UITextField()
+    var sendButton      = UIButton()
+    var sendButtonView  = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    var textField       = UITextField(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,21 +29,27 @@ class EntryEditorView: UIStackView {
     // MARK: - ViewSetup
     func addSubviews() {
         self.addArrangedSubview(textField)
-        self.addArrangedSubview(sendButton)
+        self.addArrangedSubview(sendButtonView)
+        sendButtonView.addSubview(sendButton)
     }
 
     func setupViews() {
-        self.axis           = .vertical
+        self.axis           = .horizontal
         self.distribution   = .fill
         self.spacing        = UIStackView.spacingUseSystem
         
         self.isLayoutMarginsRelativeArrangement = true
         self.directionalLayoutMargins           = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.setTitleColor(UIColor.white, for: .normal)
+        var buttonConfig    = UIButton.Configuration.borderless()
+        buttonConfig.image  = UIImage(systemName: "arrow.up.circle.fill")
+        buttonConfig.preferredSymbolConfigurationForImage   = UIImage.SymbolConfiguration(pointSize: 30)
+        buttonConfig.imagePlacement = .all
+        buttonConfig.contentInsets  = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        buttonConfig.cornerStyle    = .capsule
+        buttonConfig.imagePadding   = 0
         
-        sendButton.backgroundColor      = UIColor.tintColor
+        sendButton.configuration    = buttonConfig
         sendButton.layer.cornerRadius   = 20
         sendButton.titleLabel?.font     = .systemFont(ofSize: 15)
         
@@ -55,8 +63,12 @@ class EntryEditorView: UIStackView {
     }
 
     func setupLayout() {
+        sendButtonView.snp.makeConstraints { (make) in
+            make.width.equalTo(40)
+        }
         sendButton.snp.makeConstraints { (make) in
-            make.height.equalTo(40)
+            make.height.width.equalTo(40)
+            make.bottom.equalToSuperview()
         }
     }
 
