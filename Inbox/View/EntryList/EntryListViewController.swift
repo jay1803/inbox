@@ -82,7 +82,13 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         tableView.dataSource = dataSource
         tableView.separatorStyle = .singleLine
         
-        editorView.backgroundColor = UIColor(red: 214/255, green: 217/255, blue: 222/255, alpha: 1)
+        if view.traitCollection.userInterfaceStyle == .dark {
+            editorView.backgroundColor = UIColor.black
+        } else {
+            editorView.backgroundColor = UIColor(red: 214/255, green: 217/255, blue: 222/255, alpha: 1)
+        }
+        
+        editorView.sendButton.addTarget(self, action: #selector(self.addEntry), for: .touchUpInside)
     }
 
     
@@ -117,8 +123,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        
-        editorView.frame.origin.y = screenSize.height - keyboardSize.height - 110
+        editorView.frame.origin.y = screenSize.height - keyboardSize.height - 60
     }
 
     func fetchEntries() {
@@ -136,35 +141,25 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func addEntry() {
-        let alert = UIAlertController(title: "New note", message: "Adding a new note", preferredStyle: .alert)
-        alert.addTextField()
+        guard let content = editorView.textField.text else { return }
         
-        let submitButton = UIAlertAction(title: "Save note", style: .default) { (action) in
-            let textfield = alert.textFields![0]
-            
-            // Create a Entry object
-            let newEntry = Entry(context: self.context)
-            newEntry.id = UUID()
-            newEntry.content = textfield.text
-            newEntry.createdAt = Date()
-            newEntry.updatedAt = newEntry.createdAt
-            
-            // Save the data
-            do {
-                try self.context.save()
-            } catch {
-                print("Save notes error...")
-            }
-            
-            // Re-fetch the data
-            self.fetchEntries()
+        // Create a Entry object
+        let newEntry = Entry(context: self.context)
+        newEntry.id = UUID()
+        newEntry.content = content
+        newEntry.createdAt = Date()
+        newEntry.updatedAt = newEntry.createdAt
+        
+        // Save the data
+        do {
+            try self.context.save()
+        } catch {
+            print("Save notes error...")
         }
         
-        // Add button
-        alert.addAction(submitButton)
-        
-        // Showing alert
-        self.present(alert, animated: true, completion: nil)
+        // Re-fetch the data
+        self.fetchEntries()
+        editorView.textField.text = ""
     }
     
     @objc func editEntry() {

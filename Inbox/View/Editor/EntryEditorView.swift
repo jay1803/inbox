@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 import SnapKit
 
 class EntryEditorView: UIStackView {
@@ -13,6 +14,7 @@ class EntryEditorView: UIStackView {
     var sendButton      = UIButton()
     var sendButtonView  = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     var textField       = UITextField(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     override init(frame: CGRect) {
@@ -41,17 +43,14 @@ class EntryEditorView: UIStackView {
         self.isLayoutMarginsRelativeArrangement = true
         self.directionalLayoutMargins           = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
-        var buttonConfig    = UIButton.Configuration.borderless()
-        buttonConfig.image  = UIImage(systemName: "arrow.up.circle.fill")
+        var buttonConfig            = UIButton.Configuration.borderless()
+        buttonConfig.image          = UIImage(systemName: "arrow.up.circle.fill")
         buttonConfig.preferredSymbolConfigurationForImage   = UIImage.SymbolConfiguration(pointSize: 30)
         buttonConfig.imagePlacement = .all
         buttonConfig.contentInsets  = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         buttonConfig.cornerStyle    = .capsule
         buttonConfig.imagePadding   = 0
-        
         sendButton.configuration    = buttonConfig
-        sendButton.layer.cornerRadius   = 20
-        sendButton.titleLabel?.font     = .systemFont(ofSize: 15)
         
         textField.font              = .systemFont(ofSize: 15)
         textField.borderStyle       = .roundedRect
