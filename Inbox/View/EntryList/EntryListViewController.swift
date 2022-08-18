@@ -43,8 +43,6 @@ class EntryListViewController: UIViewController, UITableViewDelegate, UITextView
     
     override func viewWillAppear(_ animated: Bool) {
         fetchEntries()
-        updateLayout()
-        print(tableView.frame)
     }
 
     override func viewDidLayoutSubviews() {

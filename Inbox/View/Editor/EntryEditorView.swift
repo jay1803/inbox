@@ -59,7 +59,6 @@ class EntryEditorView: UIStackView {
         textView.layer.cornerRadius = 20
         textView.contentInset       = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         textView.frame.size.height  = 40
-//        textView.isScrollEnabled    = false
     }
 
     func setupLayout() {
