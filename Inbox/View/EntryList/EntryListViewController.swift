@@ -13,12 +13,14 @@ enum Section {
     case all
 }
 
-class EntryListViewController: UIViewController, UITableViewDelegate {
+class EntryListViewController: UIViewController, UITableViewDelegate, UITextViewDelegate {
     
     // MARK: - Property
     var path = NSHomeDirectory()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [Entry]?
+    var keyboardSize = CGRect(x: 0, y: 0, width: 0, height: 0)
+    var safeArea: CGFloat = 32
     lazy var dataSource = configureDataSource()
     
     private var listView   = UIView()
@@ -36,10 +38,13 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         setupViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchEntries()
+        updateLayout()
+        print(tableView.frame)
     }
 
     override func viewDidLayoutSubviews() {
@@ -84,41 +89,42 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         }
         
         editorView.sendButton.addTarget(self, action: #selector(self.addEntry), for: .touchUpInside)
+        editorView.textView.delegate    = self
     }
 
     
     func setupLayout() {
-        listView.snp.makeConstraints { (make) in
-            make.top.right.bottom.left.equalToSuperview()
-        }
-        
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.width.equalToSuperview()
-            make.bottom.equalTo(editorView.snp.top).offset(-10)
-        }
     }
     
     func updateLayout() {
-        tableView.snp.remakeConstraints { (make) in
-            make.top.right.left.equalToSuperview()
-            make.bottom.equalTo(editorView.snp.top).offset(-10)
-        }
-        editorView.snp.remakeConstraints { (make) in
-            make.width.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.height.equalTo(60)
-        }
+        tableView.frame.size.height     = screenSize.height - 94
+        tableView.frame.size.width      = screenSize.width
+        
+        editorView.frame.size.height    = 60
+        editorView.frame.size.width     = screenSize.width
+        editorView.frame.origin.y       = screenSize.height - 94
+        
+        listView.frame.size.height      = screenSize.height
+        listView.frame.size.width       = screenSize.width
     }
     
     // MARK: - Private
     
+    @objc func keyboardWillHide(notification: NSNotification) {
+        print("keyboard will hide...")
+        keyboardSize    = CGRect(x: 0, y: 0, width: 0, height: 0)
+        safeArea        = 32
+        editorView.frame.origin.y = screenSize.height - keyboardSize.height - editorView.frame.height - safeArea
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         print("Keyboard will shown.....")
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+        guard let keyboardBounds = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        editorView.frame.origin.y = screenSize.height - keyboardSize.height - 60
+        keyboardSize = keyboardBounds
+        safeArea    = 0
+        editorView.frame.origin.y = screenSize.height - keyboardSize.height - editorView.frame.height - safeArea
     }
 
     func fetchEntries() {
@@ -136,7 +142,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func addEntry() {
-        guard let content = editorView.textField.text else { return }
+        guard let content = editorView.textView.text else { return }
         
         // Create a Entry object
         let newEntry = Entry(context: self.context)
@@ -154,7 +160,9 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         
         // Re-fetch the data
         self.fetchEntries()
-        editorView.textField.text = ""
+        editorView.textView.text        = ""
+        editorView.frame.size.height    = 60
+        editorView.frame.origin.y       = screenSize.height - keyboardSize.height - editorView.frame.height - safeArea
     }
     
     @objc func editEntry() {
@@ -179,6 +187,7 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         let viewController = DetailViewController()
         viewController.entry = entry
         navigationController?.pushViewController(viewController, animated: true)
+        editorView.textView.endEditing(true)
     }
     
     
@@ -224,5 +233,20 @@ class EntryListViewController: UIViewController, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.items![indexPath.row]
         viewDetail(of: item)
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        print("should end editing...")
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("Did begin editing...")
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        print("Did change...")
+        editorView.frame.size.height    = textView.contentSize.height + 23
+        editorView.frame.origin.y       = screenSize.height - editorView.frame.size.height - keyboardSize.height - safeArea
     }
 }

@@ -12,10 +12,10 @@ import SnapKit
 class EntryEditorView: UIStackView {
     // MARK: - Property
     var sendButton      = UIButton()
-    var sendButtonView  = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-    var textField       = UITextField(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var sendButtonView  = UIView()
+    var textView        = UITextView()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +30,7 @@ class EntryEditorView: UIStackView {
     
     // MARK: - ViewSetup
     func addSubviews() {
-        self.addArrangedSubview(textField)
+        self.addArrangedSubview(textView)
         self.addArrangedSubview(sendButtonView)
         sendButtonView.addSubview(sendButton)
     }
@@ -52,13 +52,14 @@ class EntryEditorView: UIStackView {
         buttonConfig.imagePadding   = 0
         sendButton.configuration    = buttonConfig
         
-        textField.font              = .systemFont(ofSize: 15)
-        textField.borderStyle       = .roundedRect
-        textField.clearButtonMode   = .whileEditing
-        textField.placeholder       = "Your note..."
-        
-        textField.spellCheckingType     = .yes
-        textField.autocorrectionType    = .yes
+        textView.font               = .systemFont(ofSize: 17)
+        textView.isEditable         = true
+        textView.layer.borderColor  = CGColor(red: 0, green: 0, blue: 0, alpha: 0.18)
+        textView.layer.borderWidth  = 1
+        textView.layer.cornerRadius = 20
+        textView.contentInset       = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        textView.frame.size.height  = 40
+//        textView.isScrollEnabled    = false
     }
 
     func setupLayout() {
